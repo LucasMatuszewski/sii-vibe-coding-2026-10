@@ -1202,7 +1202,6 @@ body[data-page-type="slides"] .prompt-full .copy-prompt{position:absolute;top:.5
 body[data-page-type="slides"] .prompt-full pre[data-prompt-id]{padding-top:3.4rem}
 
 /* Keep organizer logos clear of the slide progress bar at every viewport width. */
-body[data-page-type="slides"] .sages-course-brand,
 body[data-page-type="slides"] .fsi-deck-brand{margin-top:10px}
 
 
