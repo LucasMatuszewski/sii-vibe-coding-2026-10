@@ -2,7 +2,7 @@
 
 ## Project
 
-This is a **course project** for the "AI dla programistów - od pomysłu do MVP" training organized by COURSE-ORGANIZER, 5 days (COURSE-DATES), remote on cloud VMs. The primary taught agent is OpenAI Codex CLI, with Claude Code and GitHub Copilot as covered alternatives. The group selects the actual application and change. Greenfield work starts from the empty scaffold and defines the product live; legacy work uses a separate clone of the original application. Its domain, stack and architecture come from the real task and inspected sources, not historical course examples: research → application or feature PRD → ADR → implementation with agents.
+This is a **course project** for the "Vibe coding - programowanie z agentami AI bez utraty kontroli" training organized by Future Skills Institute for SII, 2 days (17-18.10.2026), online, on participants' own laptops. The group chooses the main agent at the start (Claude Code, Codex, GitHub Copilot agent mode or Cursor); instructions here apply to all of them. Some participants do not program daily: when asked, explain each change, command and Git step in plain language. The group selects the actual application and change. Greenfield work starts from the empty scaffold and defines the product live; legacy work uses a separate clone of the original application. Its domain, stack and architecture come from the real task and inspected sources, not historical course examples: research → application or feature PRD → ADR → implementation with agents.
 
 This is only the **base starting repository** for the course; concrete decisions are made live with the group.
 

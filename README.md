@@ -1,17 +1,25 @@
-# AI dla programistów - od pomysłu do MVP (COURSE-ORGANIZER)
+# Vibe coding - programowanie z agentami AI bez utraty kontroli
 
-**Materiały szkoleniowe: [devpowers.com/szkolenia/COURSE-SITE](https://devpowers.com/szkolenia/COURSE-SITE/)**
+**Materiały szkoleniowe: [devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/)**
 
-- [Agenda i wszystkie materiały](https://devpowers.com/szkolenia/COURSE-SITE/agenda.html)
-- [Slajdy](https://devpowers.com/szkolenia/COURSE-SITE/agenda.html#prezentacje)
-- [Biblioteka promptów](https://devpowers.com/szkolenia/COURSE-SITE/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/COURSE-SITE/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/COURSE-SITE/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/COURSE-SITE/slownik-ai.html)
-- [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/COURSE-SITE/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/COURSE-SITE/pytania.html) (uzupełniamy po każdym dniu)
+- [Agenda i wszystkie materiały](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/agenda.html)
+- [Slajdy](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/agenda.html#prezentacje)
+- [Biblioteka promptów](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/prompty.html) · [Ćwiczenia](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/cwiczenia.html) · [Checklisty](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/checklisty.html) · [Słownik AI](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/slownik-ai.html)
+- [Wyniki ankiety przed szkoleniem](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/raport-przed.html) · [Odpowiedzi na pytania z kursu](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/pytania.html) (uzupełniamy po każdym dniu)
 
-Repozytorium uczestnika szkolenia COURSE-ORGANIZER (COURSE-DATES, online, 09:00-16:00). Przez pięć dni przechodzimy pełny cykl wytwarzania oprogramowania z agentami AI: od pomysłu i wymagań (PRD), przez decyzje architektoniczne (ADR), plan, implementację i testy, po code review, bezpieczeństwo i CI/CD.
+Repozytorium uczestnika szkolenia Future Skills Institute dla SII (17-18.10.2026, online, 09:00-17:00). Przez dwa dni uczymy się metodycznego vibe codingu: agent AI pisze większość kodu, a człowiek odpowiada za specyfikację, plan, weryfikację i ryzyko. Pracujemy w małych krokach, z testami jako siatką bezpieczeństwa i review każdej zmiany. [Program szkolenia](AGENDA.md).
 
-Głównym agentem warsztatu jest **OpenAI Codex CLI**, a te same koncepcje pokazujemy także w **Claude Code** i **GitHub Copilot**. Możesz pracować w swoim stosie (np. C# / .NET, Java, Python); przykład prowadzącego powstaje w TypeScript.
+Główne narzędzie agentowe wybieramy wspólnie na początku zajęć (Claude Code, Codex, GitHub Copilot w trybie agentowym lub Cursor). Repozytorium ma gotowe konfiguracje dla każdego z nich: `AGENTS.md`, `CLAUDE.md`, `.claude/`, `.codex/`, `.github/` i `.mcp.json`. Możesz pracować w swoim stosie (np. Java, C# / .NET, Python); przykład prowadzącego powstaje w TypeScript z Next.js i Vercel AI SDK. Jeśli nie programujesz na co dzień, pracujesz na tym samym projekcie: czytasz plan i zmiany razem z agentem i prosisz go o wyjaśnienie każdego kroku.
 
-Głównym projektem grupy jest aplikacja do obsługi zwrotów i reklamacji elektroniki, rozwijana według PRD uzgodnionego podczas zajęć. Możesz też pracować nad własnym pomysłem, stosując ten sam proces. Po PRD omów architekturę i biblioteki, zapisz decyzje w ADR, ułóż plan i zależności zadań, a potem implementuj, testuj i przeglądaj zmiany przed utworzeniem PR. Przykładowy prompt PRD w `course-materials/` nie zastępuje dokumentu poprawionego z grupą.
+Głównym projektem grupy jest czat AI do obsługi zwrotów i reklamacji elektroniki: formularz, zdjęcie produktu, rekomendacja modelu i rozmowa uzupełniająca. Rozwijamy go według PRD uzgodnionego podczas zajęć. Możesz też pracować nad własnym pomysłem, stosując ten sam proces. Po PRD omów architekturę i biblioteki, zapisz decyzje w ADR, ułóż plan i zależności zadań, a potem implementuj, testuj i przeglądaj zmiany przed utworzeniem PR. Przykładowy prompt PRD w `course-materials/` nie zastępuje dokumentu poprawionego z grupą.
+
+### Jak zacząć
+
+1. Zrób fork tego repozytorium na swoim koncie GitHub (przycisk **Fork**) i sklonuj swój fork: `git clone https://github.com/<twoj-login>/sii-vibe-coding-2026-10.git`.
+2. Utwórz gałąź do pracy: `git switch -c feature/<krotka-nazwa>`.
+3. Uruchom wybranego agenta w katalogu repozytorium i poproś go o krótkie podsumowanie `AGENTS.md`.
+
+Pull requesty otwierasz w swoim forku. Dzięki temu nie potrzebujesz zaproszenia do repozytorium prowadzącego.
 
 ## Biblioteka dodatkowa
 
