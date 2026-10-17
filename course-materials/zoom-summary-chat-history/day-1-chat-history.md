@@ -263,7 +263,7 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **15:17 — M.M.:** LOL
 - **15:18 — K.S.:** A to się nagrywa? 😄
 - **15:20 — M.M.:** ale to się trochę wyklucza z tym co mówiłeś wcześniej, że agenci będą tworzyć w języku niezrozumiałym dla ludzi. więc gdzie tutaj w ogóle potrzeba „doglądania” tego?
-- **15:23 — Trener:** Snowhere — model LLM shadow — kto to? [link do demonstracji — adres pominięty]
+- **15:23 — Trener:** Snowhere — model LLM shadow — kto to? <https://01a14a21-c92f-745b-a2a3-112e9814c520.arena.site/>
 - **15:23 — Trener:** snowhare
 - **15:24 — Trener:** https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/slownik-ai.html\
   Słownik pojęć AI
