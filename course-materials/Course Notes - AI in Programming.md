@@ -2,6 +2,8 @@
 
 Notes from course — AI dla programistów: od pomysłu do MVP
 
+Trener: Łukasz Matuszewski · [LinkedIn](https://www.linkedin.com/in/lukaszmatuszewski/) · [X](https://x.com/mrLumatic)
+
 ## PYTANIA NA START:
 - Jak do tej pory używasz AI w pracy? Jakich narzędzi i w jaki sposób? (poziom autonomii)
 - Jakie są Twoje doświadczenia? Pomaga? Przyspiesza? Spowalnia?

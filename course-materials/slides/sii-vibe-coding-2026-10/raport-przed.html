@@ -272,7 +272,7 @@
 @media print{details .table-fallback{position:static;width:100%;height:auto;clip:auto;white-space:normal}}
 </style>
 
-</head>
+<style>.course-trainer-credit{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.25rem .6rem;margin:1.25rem auto;padding:.6rem 1rem;max-width:72rem;color:var(--muted,#9dafc4);font:13px/1.5 system-ui,sans-serif;text-align:center}.course-trainer-credit a{color:var(--accent,#76c9de);text-decoration:underline;text-underline-offset:.18em}.course-trainer-credit a:focus-visible{outline:2px solid currentColor;outline-offset:4px}.course-trainer-credit .trainer-socials{white-space:nowrap}</style></head>
 <body data-course-audience="developer">
   <header class="topbar">
     <div class="shell topbar-inner">
@@ -917,4 +917,5 @@ document.getElementById('printBtn').addEventListener('click',()=>window.print())
 let state=[];window.addEventListener('beforeprint',()=>{state=[...document.querySelectorAll('details')].map(d=>d.open);document.querySelectorAll('details').forEach(d=>d.open=true);});window.addEventListener('afterprint',()=>document.querySelectorAll('details').forEach((d,i)=>d.open=state[i]));
 const recommendations=["Pracuj na wspólnym syntetycznym projekcie.", "Zapisz wymaganie i kryteria akceptacji przed implementacją.", "Ogranicz plan do jednej sprawdzalnej zmiany.", "Zapisuj reguły w instrukcjach projektu i sprawdzaj ich działanie.", "Weryfikuj biblioteki w aktualnej dokumentacji.", "Po zmianie uruchom testy dobrane do ryzyka i przeczytaj diff.", "Przed scaleniem uzyskaj niezależny przegląd i akceptację człowieka."];
 document.getElementById('copyBtn').addEventListener('click',async()=>{const text='Vibe coding - 17-18.10.2026\n\n'+recommendations.map((s,i)=>(i+1)+'. '+s).join('\n');try{await navigator.clipboard.writeText(text);const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}catch(_){window.prompt('Skopiuj rekomendacje:',text);}});
-</script></body></html>
+</script><footer class="course-trainer-credit" aria-label="Trener i profile"><span>Future Skills Institute</span><span>Trener: Łukasz Matuszewski</span><span class="trainer-socials"><a href="https://www.linkedin.com/in/lukaszmatuszewski/" aria-label="Łukasz Matuszewski na LinkedIn">LinkedIn</a> · <a href="https://x.com/mrLumatic" aria-label="Łukasz Matuszewski na X">X</a></span></footer>
+</body></html>

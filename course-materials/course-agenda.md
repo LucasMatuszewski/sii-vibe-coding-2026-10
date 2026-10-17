@@ -1,187 +1,151 @@
-# Przykładowy program szkolenia
+# Program szkolenia
 
-## Claude Code – od zera do zespołu agentów AI
+Vibe coding - programowanie z agentami AI bez utraty kontroli
 
-> **Przykładowy program trzydniowy** | zdalnie
->
-> **Prowadzący demonstruje:** TypeScript + Vercel AI SDK. **Uczestnicy mogą pracować we własnym stacku** (Java, Python, C#, Go, Rust itp.).
->
-> **Projekt kursowy:** multimodalna aplikacja AI Chat budowana z agentami Claude Code. Pomysł i wymagania ustalamy wspólnie na kursie; aplikacja zwrotów/reklamacji to przykład prowadzącego (fallback).
+## Do kogo szkolenie jest skierowane?
 
----
+Szkolenie jest skierowane do:
 
-## Dzień 1: Fundamenty i start projektu
+- Programistów, którzy chcą pracować z agentami AI (Claude Code, Cursor, Copilot agent mode) na całych zadaniach, nie pojedynczych podpowiedziach.
 
-*Temat przewodni: Środowisko, tryby pracy i konfiguracja agenta*
+- Testerów automatyzujących budujących narzędzia i testy z pomocą agentów.
 
-### Moduł 1.1: Wprowadzenie i konfiguracja
+- Tech leadów, którzy chcą ustalić zespołowe zasady pracy AI-first zanim zrobi się chaos.
 
-- Poznajmy się – doświadczenia uczestników
-- AI w programowaniu 2026: agenci, a nie tylko asystenci
-- Trendy i case studies
-- Narzędzia i harnessy: Claude Code, Codex, OpenCode, Antigravity
-- Korzyści vs ryzyka (halucynacje, context rot, koszty)
-- Weryfikacja środowiska: CLI, Desktop, IDE, Node.js, Git
-- Pierwsze uruchomienie Claude Code
+## Wymagania wstępne
 
-**Cel:** Gotowe i sprawdzone środowisko pracy
+- Praktyczne doświadczenie w programowaniu (dowolny język) i praca z Gitem (branch, commit, PR).
 
----
+- Podstawowe doświadczenie z dowolnym asystentem AI w kodzie.
 
-### Moduł 1.2: Tryby pracy i kluczowe funkcje
+- Dostęp do narzędzia agentowego potwierdzamy przed szkoleniem z licencjami organizacji.
 
-- CLI interaktywny vs `-p` (headless)
-- Desktop App (chat z kodem, Hyper-V sandbox)
-- Claude Web (remote environments)
-- Kiedy który tryb wybrać
-- Kluczowe komendy: `/resume`, `/compact`, `/context`, `/model`, `/permissions` (i więcej: `/init`, `/plan`, `/code-review`, `/memory`...)
-- Modele: Claude Fable 5 / Opus 4.8 / Sonnet 5 / Haiku 4.5 oraz alternatywy (GPT-5.6, Grok 4.5, GLM-5.2) – kiedy który; ranking LMArena na żywo
-- Zarządzanie kontekstem: okno, kompresja, context rot
-- Uprawnienia i tryby pracy (default / accept edits / plan / auto / bypass; reguły allow/ask/deny; Sandbox)
+## Cel szkolenia
 
-**Cel:** Swobodna praca w każdym trybie Claude Code
+Nauczyć uczestników metodycznego "vibe codingu": pracy, w której agent AI pisze większość kodu, a człowiek zarządza specyfikacją, planem, weryfikacją i ryzykiem. Szkolenie uczy warsztatu, który odróżnia szybkie dowożenie od produkcji długu technicznego: spec przed kodem, małe kroki, testy jako siatka bezpieczeństwa i review każdego outputu.
 
----
+## Korzyści z udziału w szkoleniu
 
-### Moduł 1.3: Context Engineering i konfiguracja agenta
+Po ukończeniu szkolenia uczestnik:
 
-- Od prompt engineering do context engineering
-- `CLAUDE.md` i `AGENTS.md` (projekt + globalny)
-- Struktura kontekstu: system prompt, konfiguracja, pamięć
-- Path-based rules vs zagnieżdżone `CLAUDE.md`
-- Praktyka: `CLAUDE.md`/`AGENTS.md` dla naszego projektu
-- Best practices (max ~200 linii, jak iterować)
+- Zna aktualną taksonomię narzędzi: autocomplete, agent w IDE, agent terminalowy, agent chmurowy - i dobiera je do zadania.
 
-**Cel:** Skonfigurowany agent „znający" nasz projekt
+- Prowadzi agenta metodą spec-first: od wymagań i planu do iteracyjnej implementacji.
 
----
+- Utrzymuje kontrolę: małe kroki, testy przed scaleniem, review kodu AI jak kodu juniora.
 
-### Moduł 1.4: Projekt – AI Chat z Vercel AI SDK
+- Konfiguruje pliki instrukcji projektu (CLAUDE.md, copilot-instructions.md, AGENTS.md), które trzymają agenta w standardach zespołu.
 
-- Omówienie projektu: AI Chat (backend + frontend) do obsługi zwrotów/reklamacji
-- Tworzenie PRD (wymagania produktowe)
-- Architektura: TypeScript + Vercel AI SDK + streaming
-- ADR (Architecture Decision Record)
-- Agent inicjalizuje template Vercel AI
+- Zna ryzyka: bezpieczeństwo, sekrety, prompt injection, licencje - i zespołowe zasady obrony.
 
-**Cel:** Plan aplikacji AI Chat i uruchomiony scaffolding
+## Czego nie ma na tym szkoleniu
 
-> Plan minimum dnia 1: PRD (i start ADR, jeśli czas pozwoli). ADR i inicjalizację zwykle kończymy rano w dniu 2 – tempo dostosowujemy do grupy.
+- nauki programowania ani konfiguracji GitHub Copilot od podstaw (osobne szkolenie) - zakładamy doświadczenie developerskie.
 
----
+## Program szkolenia
 
-**Praca domowa D1:** Dokończenie scaffoldingu; rozbudowa `CLAUDE.md`; eksperymenty z trybami pracy.
+### DZIEŃ 1
 
----
+**Warsztat pracy z agentem**
 
-## Dzień 2: Narzędzia, sub-agenci i budowa funkcjonalności
+#### 1. Czym jest (a czym nie jest) vibe coding
 
-*Temat przewodni: Wyposażenie agenta w narzędzia i zespół*
+- Od autocomplete do agentów: mapa narzędzi 2026 (Claude Code, Cursor, Copilot agent mode, Codex).
 
-### Moduł 2.1: MCP
+- Gdzie vibe coding błyszczy, a gdzie kończy się katastrofą - uczciwe granice.
 
-- MCP (Model Context Protocol) – czym jest i dlaczego coraz częściej Skills zamiast MCP
-- Konfiguracja: `.mcp.json`, settings
-- Context7 (aktualna dokumentacja bibliotek)
-- Playwright MCP (przeglądarka, testy E2E)
-- Inne serwery MCP
-- **Praktyka:** Design Guidelines wygenerowane z dowolnej strony przez Playwright MCP
+#### 2. Spec przed kodem
 
-**Cel:** Agent z dostępem do dokumentacji i przeglądarki
+- Specyfikacja i plan jako pierwszy artefakt: co agent musi wiedzieć, zanim zacznie.
 
----
+- Tryby planowania w narzędziach agentowych; zatwierdzanie planu przed implementacją.
 
-### Moduł 2.2: Skills
+- Warsztat: od opisu funkcjonalności do zaakceptowanego planu.
 
-- Skills – umiejętności agenta wielokrotnego użytku
-- Instalowanie istniejących skills jako template
-- Tworzenie własnych skills z historii sesji i workflow
-- Skrypty/narzędzia w skills
-- Custom slash commands
+#### 3. Iteracyjna implementacja z agentem
 
-**Cel:** Skonfigurowane narzędzia i workflows dostosowane do projektu
+- Małe kroki zamiast "zrób całość": kontrola zakresu i cofanie zmian.
 
----
+- Prowadzenie agenta przez feedback: jak poprawiać kurs zamiast zaczynać od nowa.
 
-### Moduł 2.3: Sub-agenci
+- Warsztat: implementacja funkcjonalności end-to-end na wspólnym repozytorium.
 
-- Architektura sub-agentów (Agent tool, dawniej Task; typy agentów)
-- Orkiestracja: główny agent kontroluje specjalistów
-- Typy: Explore, Plan, custom (be-dev, fe-dev, qa)
-- Konfiguracja, pamięć, zasady zespołowe
-- **Praktyka:** definiowanie specjalistów:
-  - `be-developer` (TypeScript backend)
-  - `fe-developer` (React / Vercel AI SDK)
-  - `qa-engineer`
-- Delegowanie pierwszych zadań; monitorowanie i feedback
+#### 4. Pliki instrukcji projektu
 
-**Cel:** Działający zespół sub-agentów
+- CLAUDE.md / copilot-instructions.md / AGENTS.md: standardy zespołu, które agent czyta sam.
 
----
+- Co włożyć w instrukcje: konwencje, architektura, zakazy, definicja ukończenia.
 
-### Moduł 2.4: Budowa aplikacji z sub-agentami (TDD)
+- Warsztat: instrukcje dla repozytorium warsztatowego i test ich działania.
 
-- TDD z agentem: Red-Green-Refactor (testy PRZED kodem)
-- API backend (streaming, Vercel AI SDK)
-- React `useChat`, streaming, komponenty
-- Integracja frontend-backend
-- Podział ról: be-developer buduje endpoint, fe-developer UI, qa robi review + E2E
-- Git: granularne commity po każdej zielonej fazie
+### DZIEŃ 2
 
-**Cel:** Wstępny działający kod aplikacji od wielu agentów
+**Jakość, bezpieczeństwo i zespół**
 
----
+#### 5. Testy jako siatka bezpieczeństwa
 
-**Praca domowa D2:** Dokończenie aplikacji; rozbudowa (historia czatów, rendering markdown); eksperymenty z delegowaniem; optymalizacja `CLAUDE.md`/`AGENTS.md`.
+- Zasada: agent może pisać kod, bo testy pilnują zachowania.
 
----
+- Agent piszący testy do własnego kodu - kiedy to działa, a kiedy oszukuje.
 
-## Dzień 3: Zespoły agentów, jakość i produkcja
+- Warsztat: rozwój funkcjonalności w pętli test-implementacja.
 
-*Temat przewodni: Praca równoległa, jakość i wdrożenie*
+#### 6. Review kodu AI
 
-### Moduł 3.1: Agent Teams – praca równoległa
+- Typowe wady kodu agentowego: pewne siebie błędy, nadmiarowość, fałszywe API, za duże zmiany.
 
-- Od sub-agentów do zespołów
-- Git worktrees (równoległe gałęzie pracy)
-- Task Plan Matrix: zależności, fazy, briefing
-- **Praktyka:** 3 agentów równolegle (BE feature, FE feature, testy E2E – każdy w worktree); merge i rozwiązywanie konfliktów
+- Checklista review dla kodu AI; rola code review automatycznego.
 
-> **Dodatkowo (zatwierdzone):** Workflows – skrypty JS orkiestrujące subagentów + goal command (20–30 min).
+- Warsztat: przegląd i poprawa PR wygenerowanego przez agenta.
 
-**Cel:** Dokończenie aplikacji równolegle, merge wyników
+#### 7. Bezpieczeństwo pracy agentowej
 
----
+- Sekrety i dane wrażliwe: co agent widzi i czego nie może zobaczyć.
 
-### Moduł 3.2: Testowanie i jakość
+- Prompt injection przez pliki, zależności i treści zewnętrzne.
 
-- Self-assessment i feedback loop TDD
-- `qa-engineer`: testy E2E (skill) + manualne (MCP)
-- Playwright MCP w testach
-- Code review z agentem (security, jakość)
-- Ograniczenia AI i konieczność human review
+- Licencje i pochodzenie kodu; polityki organizacji.
 
-**Cel:** Kompleksowe testy i review aplikacji
+#### 8. Vibe coding w zespole
 
----
+- Zasady zespołowe: kiedy wolno delegować agentowi, co wymaga człowieka.
 
-### Moduł 3.3: Claude w chmurze i CI/CD
+- Koszty pracy agentowej i ich kontrola.
 
-- Claude Web remote environments (secrets, starting script, integracja z GitHub)
-- Headless `-p` w GitHub Actions
-- Koszty i optymalizacja (tokeny, modele, cache)
-- *Adaptacja ankieta:* większość uczestników korzysta z Jenkins – pokazany wariant Jenkins
+- Jak mierzyć, czy zespół faktycznie przyspieszył (a nie tylko generuje więcej kodu).
 
-**Cel:** Agent w chmurze oraz w pipeline CI/CD
+#### 9. Projekt końcowy
 
----
+- Zadanie end-to-end: spec, plan, implementacja z agentem, testy, review, merge.
 
-### Moduł 3.4: Podsumowanie
+- Retrospektywa: co z warsztatu wdrażam w swoim projekcie od poniedziałku.
 
-- Demo projektów uczestników
-- Retrospektywa
-- Best practices zespołowe
-- Tematy zaawansowane, modele lokalne (Ollama, vLLM; np. Gemma)
-- Zasoby do dalszej nauki
+## Metodyka prowadzenia szkolenia
 
-**Cel:** Samodzielność po kursie
+- Minimum 70% czasu to warsztat na wspólnym repozytorium z realnym, niedoskonałym kodem.
+
+- Pracujemy na narzędziach agentowych dostępnych w organizacji uczestników.
+
+- Materiały: szablony plików instrukcji, checklista review kodu AI, zasady zespołowe do adaptacji.
+
+## Kompetencje po szkoleniu
+
+Po szkoleniu uczestnik potrafi:
+
+- Dowozić funkcjonalności z agentem AI metodą spec-first, w małych kontrolowanych krokach.
+
+- Utrzymać jakość kodu AI testami i systematycznym review.
+
+- Skonfigurować projekt tak, by agent pracował w standardach zespołu.
+
+- Rozpoznawać i ograniczać ryzyka bezpieczeństwa pracy agentowej.
+
+## Forma realizacji
+
+- 2 dni - 16 godzin
+
+- Szkolenie online
+
+- Praca warsztatowa + ćwiczenia indywidualne
+
+- Temat przekrojowy: programiści + testerzy automatyzujący
