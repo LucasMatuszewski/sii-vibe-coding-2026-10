@@ -48,7 +48,9 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **08:12 — Trener:** https://www.langchain.com/
 - **08:16 — Trener:** https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/
 - **08:17 — Trener:** <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10>
-- **08:21 — Trener:** https://www.reddit.com/r/ClaudeCode/comments/1x5phqp/anthropic_went_from_2500_to_30000_merges_a_day/ ; https://www.anthropic.com/engineering/redesigning-source-control
+- **08:21 — Trener:** https://www.reddit.com/r/ClaudeCode/comments/1x5phqp/anthropic_went_from_2500_to_30000_merges_a_day/  
+  https://www.anthropic.com/engineering/redesigning-source-control
+
 - **08:23 — Trener:** https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/Prezentacja_01_Start_kursu.html
 - **08:46 — Trener:** GH Copilot. Reakcje: 👍 2.
 - **08:46 — Trener:** Claude Code. Reakcje: 👍 7.
@@ -59,17 +61,17 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **08:48 — Trener:** Grok.
 - **08:48 — Trener:** Zed IDE.
 - **08:48 — Trener:** OpenCode.
-- **08:55 — Trener:** Alternatywy Chińskie:\
+- **08:55 — Trener:** Alternatywy Chińskie:  
   https://mimo.mi.com/docs/en-US/price/token-plan
 
 - **08:56 — Trener:** https://z.ai/subscribe
-- **08:58 — Trener:** Bezpłatnie, open source alternative:\
+- **08:58 — Trener:** Bezpłatnie, open source alternative:  
   https://opencode.ai/
 
 - **08:59 — Trener:** https://chatgpt.com/pricing/
 - **09:02 — A.B.:** Cluade kupie
-- **09:06 — Trener:** Legacy Code Skill:\
-  https://www.skills.sh/edukeyteam/agent-toolbox/legacy-codebase-workflows\
+- **09:06 — Trener:** Legacy Code Skill:  
+  https://www.skills.sh/edukeyteam/agent-toolbox/legacy-codebase-workflows  
   <https://github.com/EdukeyTeam/agent-toolbox/tree/main/skills/legacy-codebase-workflows>
 
 - **09:08 — Trener:** Legacy Code. Reakcje: ❤️ 1, 👍 2.
@@ -80,14 +82,14 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **09:11 — Trener:** WSL
 - **09:11 — M.M.:** Czyli mimo, że głównym narzędziem będzie Claude, to jak mam prywatną sub Codexa to mogę używać Codexa podczas szkolenia?
 - **09:13 — Trener:** git bash
-- **09:14 — Trener:** https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows?view=powershell-7.6\
+- **09:14 — Trener:** https://learn.microsoft.com/en-us/powershell/scripting/install/install-powershell-on-windows?view=powershell-7.6  
   PowerShell 7 — lepszy dla agentów
 
-- **09:15 — Trener:** Copilot CLI\
-  minimum Powershell 6\
+- **09:15 — Trener:** Copilot CLI  
+  minimum Powershell 6  
   <https://github.com/features/copilot/cli>
 
-- **09:17 — Trener:** https://learn.microsoft.com/en-us/windows/wsl/install\
+- **09:17 — Trener:** https://learn.microsoft.com/en-us/windows/wsl/install  
   WSL2 — polecam Ubuntu 26
 
 - **09:18 — M.G.:** chyba najlepiej się sprawdzają dla programisty wtyczki do IDE. Reakcje: 👍 1, 👎 1.
@@ -95,11 +97,11 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **09:28 — Trener:** CLI. Reakcje: 👍 6.
 - **09:28 — Trener:** Desktop. Reakcje: 👍 2.
 - **09:28 — M.M.:** Czyli mimo, że głównym narzędziem będzie Claude, to jak mam prywatną sub Codexa to mogę używać Codexa podczas szkolenia?
-- **09:32 — Trener:** herdr\
+- **09:32 — Trener:** herdr  
   zarządzanie wieloma agentami na wielu urządzeniach
 
 - **09:33 — Trener:** https://herdr.dev/
-- **09:37 — Trener:** Zarządzanie wieloma agentami:\
+- **09:37 — Trener:** Zarządzanie wieloma agentami:  
   <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/agent-managers-and-remote-agents.md>
 
 - **09:41 — M.M.:** prywtne
@@ -109,7 +111,7 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **09:48 — M.G.** [odpowiedź w wątku o wtyczkach do IDE]: w startupie ma być „dużo” i „szybko”. W dużych repozytoriach z legacy kodem — życzę powodzenia z czystym vibe codingiem 🙂
 - **09:49 — K.1** [odpowiedź w tym samym wątku]: Vibe Coding != YOLO Development. Reakcje: 😂 2.
 - **09:52 — M.G.** [odpowiedź w tym samym wątku]: YOLO Development — to coś od Martina Fowlera albo wujka Boba? Nie znam tych nowoczesnych, modnych metodyk 😉
-- **09:57 — Trener:** https://x.com/levelsio\
+- **09:57 — Trener:** https://x.com/levelsio  
   Indie DEv — pracuje z php i agentami bezpośrednio na serverze produkcyjnym
 
 - **10:04 — Trener:** https://omarchy.org/
@@ -125,35 +127,35 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **11:02 — M.M.:** w każdym razie mam uruchomionego agenta w kontekście projektu i działa :)
 - **11:04 — K.S.:** To wejdź w folder sklonowany > odpal terminal i wpisz polecenie „claude”
 - **11:04 — M.M.:** a to ciekawe, mam tomla na poziomie użytkownika i na poziomie projektu. i na poziomie użytkownika na lapku już mam dodany ten projekt jako trusted. Ręcznie tego nie zrobiłem, widać musiałem dodać jakieś uprawnienia Codexowi wcześniej, mówiące że podczas uruchomienia codexa w danym folderze dodaje go jako trusted do globalnego tomla bez pytania? wydaje się shady
-- **11:06 — P.H.:** Czy poniższy prompt jest by default? To jest vmka więc dla mnie ok, nigdzie agent nie wyskoczy albo będzie mu ciężko, ale pytam na przyszłość.\
+- **11:06 — P.H.:** Czy poniższy prompt jest by default? To jest vmka więc dla mnie ok, nigdzie agent nie wyskoczy albo będzie mu ciężko, ale pytam na przyszłość.  
   ![Ekran terminala z komunikatem o trybie uprawnień narzędzia.](https://raw.githubusercontent.com/LucasMatuszewski/sii-vibe-coding-2026-10/main/course-materials/zoom-summary-chat-history/images/image-001.png)
 
 - **11:06 — K.S.:** @T.K.1 udało się?
 - **11:08 — Trener:** szift + tab — zmiana trybu pracy w Claude — wybierzcie Auto Mode
-- **11:09 — Trener:** w Codex:\
-  /permissions\
+- **11:09 — Trener:** w Codex:  
+  /permissions  
   Approve for me
 
-- **11:09 — Trener:** /statusline\
+- **11:09 — Trener:** /statusline  
   zaznaczyć approval-mode
 
 - **11:16 — M.M.:** w Codexie ten auto mode to Approve for me w perrmissions?
 - **11:17 — K.S.** [odpowiedź do M.M.]: Tak. Reakcje: 👍 1.
-- **11:19 — Trener:** W GH Copilot: Assisted permissions (experimental)\
+- **11:19 — Trener:** W GH Copilot: Assisted permissions (experimental)  
   <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/copilot-vscode-autopilot-permissions-subagents.md>
 
-- **11:22 — Trener:** Code Mode i Algorytmiczne programowanie\
+- **11:22 — Trener:** Code Mode i Algorytmiczne programowanie  
   <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/code-mode-and-algorithmic-code-migration-2026-10-13.md>
 
-- **11:24 — P.H.:** jeszcze jedno pytanie:\
-  Muszę tutaj definiować model i branch czy to później?\
+- **11:24 — P.H.:** jeszcze jedno pytanie:  
+  Muszę tutaj definiować model i branch czy to później?  
   ![Krótki tekst w terminalu dotyczący nazwy modelu i gałęzi Git.](https://raw.githubusercontent.com/LucasMatuszewski/sii-vibe-coding-2026-10/main/course-materials/zoom-summary-chat-history/images/image-002.png)
 
-- **11:24 — Trener:** <https://github.com/EdukeyTeam/agent-toolbox>\
+- **11:24 — Trener:** <https://github.com/EdukeyTeam/agent-toolbox>  
   Skills dla szkolenia
 
 - **11:34 — P.H.:** czy takiego skilla można zrobić dla LLM? Czy to jest to samo co context?
-- **11:38 — Trener:** https://www.skills.sh/\
+- **11:38 — Trener:** https://www.skills.sh/  
   Wyszukiwarka skills
 
 - **11:38 — K.S.:** Polecam wtedy można wrzucić i sprawdzić w https://www.eset.com/us/home/ai-skills-checker/
@@ -162,16 +164,16 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **11:52 — Trener:** https://nodejs.org/en/download
 - **11:57 — Trener:** npx skills add <https://github.com/edukeyteam/agent-toolbox> --skill create-design-system
 - **12:03 — M.G. (edytowana):** na windows jest junction point zamiast symlinku, ale narzędzia pochodzące z linuxa (np.: git) takich junction points nie ogarniają
-- **12:04 — P.H.:**\
+- **12:04 — P.H.:**  
   ![Monit terminala o instalację umiejętności dla agenta.](https://raw.githubusercontent.com/LucasMatuszewski/sii-vibe-coding-2026-10/main/course-materials/zoom-summary-chat-history/images/image-003.png)
 
-- **12:08 — Trener:** Instrukcje jak dodać jako plugin:\
+- **12:08 — Trener:** Instrukcje jak dodać jako plugin:  
   <https://github.com/EdukeyTeam/agent-toolbox/tree/main>
 
 - **12:10 — M.M.:** ale nie potrzebny nam cały ten plugin w kontekście tego szkolenia?
 - **12:10 — M.M.:** nie musimy instalować wszystkiego?
 - **12:12 — Trener:** <https://github.com/EdukeyTeam/agent-toolbox/tree/main>
-- **12:14 — Trener:** Plik konfiguracyjny dla Marketplace Claude:\
+- **12:14 — Trener:** Plik konfiguracyjny dla Marketplace Claude:  
   <https://github.com/mattpocock/skills/blob/main/.claude-plugin/marketplace.json>
 
 - **12:21 — Trener:** /create-design-system
@@ -179,30 +181,32 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **12:30 — M.M.:** to przerwa?
 - **12:30 — M.M.:** do której?
 - **12:33 — Trener:** Koniec przerwy do 14:05
-- **12:34 — Trener** [odpowiedź do M.M.]: polecam Z.ai albo Mimo aby nie mieć takich dylematów ;)\
+- **12:34 — Trener** [odpowiedź do M.M.]: polecam Z.ai albo Mimo aby nie mieć takich dylematów ;)  
   6-9 USD/m i dużo więcej radochy :D
 
 - **13:01 — M.M.** [odpowiedź w tym samym wątku]: niby tak, ale to jest jednak często nadal wybór między danymi subskrypcjami. Nie ma funduszy i często też potrzeby, aby mieć suba do OpenAI, Clauda i jeszcze Chińczyków jednocześnie.
 - **13:08 — M.G.:** software factories — oglądałem — b.dobre 🙂
-- **13:08 — Trener:** https://www.youtube.com/watch?v=Ib5GBkD555M ; https://www.youtube.com/watch?v=LlgiOCmFG_w
+- **13:08 — Trener:** https://www.youtube.com/watch?v=Ib5GBkD555M  
+  https://www.youtube.com/watch?v=LlgiOCmFG_w
+
 - **13:09 — Trener:** https://notebook.google.com/notebook/32cdb78a-bb6a-4934-98f8-a25057ebb605
 - **13:09 — M.G.:** nie sprawdzają się, kiedy jakość kodu i długofalowe życie codebase się liczy, bo non-functional requirements są za trudne dla llm-ów, bo są cross-cutting. Nie da się tego łatwo przetestować funkcjonalnie
 - **13:16 — Trener:** git worktrees
 - **13:16 — M.M.:** którego modelu używać w codexie?
 - **13:16 — M.M.:** SOL?
-- **13:21 — M.K.:** jak włączyć te informacje?\
+- **13:21 — M.K.:** jak włączyć te informacje?  
   ![Terminal z poleceniem cofania oraz paskiem statusu narzędzia.](https://raw.githubusercontent.com/LucasMatuszewski/sii-vibe-coding-2026-10/main/course-materials/zoom-summary-chat-history/images/image-004.png)
 
 - **13:23 — Trener:** /create-design-system https://sii.pl/ Don't use Playwright Headless mode; use the mode here where we can see what you're doing in Chrome, so we can demonstrate how it works.
-- **13:33 — Trener (edytowana):** <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/agent-configs/claude/statusline.sh>\
+- **13:33 — Trener (edytowana):** <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/agent-configs/claude/statusline.sh>  
   Use this statusline shell here to set the status line for Claude at the user level.
 
 - **13:36 — M.M.:** DO jakich zadań jakich stopni rozumowania używać? (low medium high etc). To jest coś z czym mam problem w codziennej pracy, nie mam pewności czy dany stopień rozumowania jest za duży/za mały dla danego promptu/zadania
-- **13:37 — K.S.:** Klasa 🙂\
+- **13:37 — K.S.:** Klasa 🙂  
   ![Terminal z informacjami o gałęzi Git i trybie pracy.](https://raw.githubusercontent.com/LucasMatuszewski/sii-vibe-coding-2026-10/main/course-materials/zoom-summary-chat-history/images/image-005.png)
 
 - **13:39 — Trener:** install jq library for statusline
-- **13:40 — Trener:** claude --continue\
+- **13:40 — Trener:** claude --continue  
   ostatnia sesja
 
 - **13:41 — Trener:** claude agents
@@ -211,7 +215,7 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **13:46 — M.M.:** ok to pobawię się poza kursem aby tokenów mi nie zabrakło w 5h :). Reakcje: 😉 1.
 - **13:47 — M.G.:** ja zaznaczyłem Claude Desktop, ale wystarczy mi jak pokażesz w CLI
 - **13:49 — K.S.:** Mówiłeś, tak ze 3 razy 🙂
-- **13:53 — Trener:** Codex ChatGPT Desktop\
+- **13:53 — Trener:** Codex ChatGPT Desktop  
   Settings > General > Compose > Show context window usage
 
 - **14:05 — M.M.:** hmm czyli auto mode nie jest taki sam jak approve for me w codexie
@@ -233,27 +237,27 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **14:35 — Trener:** https://arena.ai/leaderboard/code/webdev?license=open-source
 - **14:37 — M.G.:** najlepiej zbierać własne doświadczenie na własnych projektach, więc to tylko wskazówki dla zaczynających przygodę :)
 - **14:37 — M.M.:** pytałem o te ceny z tych tabelek na tej stronie; sub ma stałą cenę tak jak mówisz i masz limity, bądź nie masz w wyższych cenach. A po API płacisz za użycie
-- **14:44 — Trener:** <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/chatgpt-subscription-vs-enterprise-credits-2026-10-12.md>\
+- **14:44 — Trener:** <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/chatgpt-subscription-vs-enterprise-credits-2026-10-12.md>  
   Porównanie kosztów Subskrypcja vs API
 
 - **14:51 — Trener:** build a html website for Steves PC Repair, High-contrast dark mode + bold condensed headings + animated ticker + chunky category chips + magnetic CTA. You must include the disclaimer that steve will not work on macs, he hates them, and their users, and include an origin story as to why
-- **14:57 — Trener:** Agregator Benchmarków:\
+- **14:57 — Trener:** Agregator Benchmarków:  
   https://artificialanalysis.ai/
 
 - **15:03 — K.2:** A pokażesz jak tego MiMo podpiąć do Claude?
-- **15:04 — Trener:** https://mimo.mi.com/docs/en-US/tokenplan/integration/claudecode\
+- **15:04 — Trener:** https://mimo.mi.com/docs/en-US/tokenplan/integration/claudecode  
   Podpięcie Mimo pod Claude Code. Reakcje: 👍 1.
 
 - **15:04 — Trener:** https://mimo.mi.com/docs/en-US/tokenplan/integration/codex-configuration
 - **15:07 — M.M.:** ostatnio się mówi, że wszystko jest open sourcowe już :P
-- **15:08 — Trener:** <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/.bashrc>\
+- **15:08 — Trener:** <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/.bashrc>  
   Przykłady configów dla różnych providerów
 
-- **15:08 — Trener:** Profile providerów dla Codex\
+- **15:08 — Trener:** Profile providerów dla Codex  
   <https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/main/course-materials/agent-configs/codex>
 
 - **15:10 — M.M.:** taa, ale podobno pod spodem używa narzędzi dostępnych już od lat
-- **15:13 — Trener:** <https://github.com/morluto/rea>\
+- **15:13 — Trener:** <https://github.com/morluto/rea>  
   Reverse Engineering Anything
 
 - **15:13 — M.G. (edytowana):** [wiadomość skierowana do Trenera]: a DBeaver?
@@ -265,7 +269,7 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **15:20 — M.M.:** ale to się trochę wyklucza z tym co mówiłeś wcześniej, że agenci będą tworzyć w języku niezrozumiałym dla ludzi. więc gdzie tutaj w ogóle potrzeba „doglądania” tego?
 - **15:23 — Trener:** Snowhere — model LLM shadow — kto to? <https://01a14a21-c92f-745b-a2a3-112e9814c520.arena.site/>
 - **15:23 — Trener:** snowhare
-- **15:24 — Trener:** https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/slownik-ai.html\
+- **15:24 — Trener:** https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/slownik-ai.html  
   Słownik pojęć AI
 
 - **15:26 — Trener:** https://platform.openai.com/tokenizer
@@ -284,7 +288,9 @@ Liczby oznaczają reakcje przy konkretnych wiadomościach, nie potwierdzoną lic
 - **16:01 — H.R.:** dzięki za dziś, cześć!
 - **16:04 — M.K.:** i ja się zawijam. Dzięki i do jutra
 - **16:05 — K.2:** Dzięki, do jutra!
-- **16:13 — Trener:** Ranking Modeli Decyzyjnych — typu Jev: <https://github.com/fstandhartinger/jevbench> ; https://benchmarkheaven.com/jev-models
+- **16:13 — Trener:** Ranking Modeli Decyzyjnych — typu Jev: <https://github.com/fstandhartinger/jevbench>  
+  https://benchmarkheaven.com/jev-models
+
 - **16:14 — B.S.:** Muszę uciekać, miłego!
 
 ## Wątki prywatne
