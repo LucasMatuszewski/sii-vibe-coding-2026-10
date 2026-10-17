@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<title>Pytania uczestników | Vibe coding | 17-18.10.2026</title>
+<meta name="description" content="Odpowiedzi na pytania o instrukcje projektu, workflow, testy, review, kontekst, koszty i pracę z agentami AI.">
+<script>(function(){try{var t=localStorage.getItem('developer-course-theme');if(t==='light')document.documentElement.dataset.theme='light'}catch(_){}})();</script>
+<link rel="stylesheet" href="course.css?v=20261017">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:78px}body{margin:0;line-height:1.65}a{color:var(--accent)}a:hover{text-decoration:underline}
+.qa-hero{padding:68px 0 38px;border-bottom:1px solid var(--line);background:radial-gradient(700px 360px at 85% 0%,var(--accent-soft),transparent 75%)}
+.qa-kicker{font:700 12px var(--font-mono);letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 13px}
+.qa-hero h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;letter-spacing:-.035em;color:var(--heading);margin:0 0 15px;max-width:850px}
+.qa-lead{font-size:clamp(1rem,2vw,1.2rem);max-width:760px;margin:0;color:var(--muted)}
+.qa-meta{font:500 13px var(--font-mono);color:var(--muted);margin:22px 0 0}
+.qa-nav{display:flex;flex-wrap:wrap;gap:8px;padding:26px 0}.qa-nav a{display:inline-block;padding:8px 13px;border:1px solid var(--line);border-radius:999px;text-decoration:none;color:var(--text);font-size:14px}.qa-nav a:hover{border-color:var(--accent);color:var(--heading);background:var(--accent-soft)}
+.qa-main{padding-bottom:75px}.qa-card{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:clamp(21px,3vw,34px);margin:0 0 18px;box-shadow:var(--shadow)}
+.qa-card h2{color:var(--heading);font-size:clamp(1.3rem,2.6vw,1.75rem);line-height:1.3;letter-spacing:-.018em;margin:0 0 15px}.qa-card p{margin:10px 0}.qa-card ul{margin:10px 0;padding-left:1.4rem}.qa-card li{margin:6px 0}.qa-card code{font:600 .9em var(--font-mono);background:var(--bg3);color:var(--heading);padding:2px 5px;border-radius:5px;overflow-wrap:anywhere}
+.qa-card pre{overflow:auto;background:var(--code-bg);color:var(--code-text);border:1px solid var(--line);border-radius:10px;padding:15px;font:13px/1.55 var(--font-mono)}.qa-card pre code{padding:0;color:inherit;background:none}
+.qa-sources{border-top:1px solid var(--line);padding-top:12px;margin-top:18px!important;color:var(--muted);font-size:13px}.qa-sources a{white-space:normal;overflow-wrap:anywhere}
+.qa-note{border-left:3px solid var(--accent2);background:var(--soft2);border-radius:0 9px 9px 0;padding:11px 15px;margin:14px 0;color:var(--text)}
+.qa-theme{margin-left:auto;border:1px solid var(--line);border-radius:9px;background:var(--bg2);color:var(--text);font:600 13px var(--font-sans);padding:8px 12px;cursor:pointer}.qa-theme:hover{border-color:var(--accent)}
+.qa-foot{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:13px}.qa-foot a{margin-right:18px}
+@media(max-width:700px){.hub-top-in{flex-wrap:wrap;gap:8px;padding-top:8px;padding-bottom:8px}.hub-brand img{max-width:125px;height:auto}.qa-hero{padding-top:40px}.qa-card{border-radius:12px}}
+a{overflow-wrap:anywhere}.qa-card{min-width:0}.qa-card table{width:100%;border-collapse:collapse;font-size:.9rem}.qa-card td,.qa-card th{text-align:left;border-bottom:1px solid var(--line);padding:8px;overflow-wrap:anywhere}.qa-demo{font-size:.9rem;color:var(--muted)}@media(max-width:700px){.qa-card td,.qa-card th{padding:7px 3px;font-size:.82rem}}
+</style>
+</head>
+<body data-course-audience="developer" data-page-type="qa" data-theme="dark"><a class="hub-skip" href="#tresc">Przejdź do treści</a>
+<header class="hub-top">
+<div class="hub-container hub-top-in"><a class="hub-brand" href="index.html" aria-label="Wróć do wszystkich materiałów">Future Skills Institute<span class="hub-brand-sub">/ pytania</span></a><button class="qa-theme" id="themeToggle" type="button" aria-label="Przełącz motyw">Przełącz motyw</button>
+</div>
+</header>
+<section class="qa-hero">
+<div class="hub-container">
+<p class="qa-kicker">Vibe coding - 17-18.10.2026</p>
+<h1>Pytania o codzienną pracę z agentem</h1>
+<p class="qa-lead">Od instrukcji projektu do testów, review i współpracy w zespole. Odpowiedzi pomagają podjąć konkretną decyzję podczas ćwiczeń i wrócić do niej po zajęciach.</p>
+<p class="qa-meta">Łukasz Matuszewski | Future Skills Institute | sprawdzono 2026-10-17</p>
+</div>
+</section>
+<main id="tresc" class="hub-container qa-main">
+<nav class="qa-nav" aria-label="Pytania"><a href="#instrukcje">Pliki instrukcji</a><a href="#podzial-regul">Podział reguł</a><a href="#hooki">Egzekwowanie i hooki</a><a href="#zadania">Podział zadań</a><a href="#kolejnosc">Kolejność pracy</a><a href="#testy">Testy</a><a href="#worktrees">Kilku agentów</a><a href="#legacy">Duże repo</a><a href="#koszty">Kontekst i koszty</a><a href="#review">Review</a><a href="#zespoly">Wiele zespołów</a><a href="#ide">Eclipse i IDE</a><a href="#bash">CLI i rozumienie</a><a href="#web-mobile">Web i mobile</a><a href="#cofanie">Cofanie</a><a href="#uprawnienia">Uprawnienia</a><a href="#skills">Skills</a><a href="#historia">Historia</a><a href="#indeks">Indeks</a><a href="#harness">Agent Host</a><a href="#organizacja">Offline</a><a href="#cicd">CI/CD</a>
+</nav>
+<article class="qa-card" id="instrukcje">
+<h2>Co włożyć do AGENTS.md, CLAUDE.md i copilot-instructions.md?</h2>
+<p><strong>Fakty:</strong> Codex odczytuje <code>AGENTS.md</code>, Claude Code używa <code>CLAUDE.md</code> i importów <code>@plik.md</code>, a Copilot ma repozytoryjne <code>.github/copilot-instructions.md</code>. Zakres obsługi zależy od narzędzia.</p>
+<p><strong>Zalecenie:</strong> zacznij od krótkiej mapy projektu, rzeczywistych poleceń uruchomienia i testów, granic architektury, zakazów oraz definicji ukończenia. W nowym dla agenta repo poproś najpierw o odczyt manifestów, CI i przykładowego modułu, bez zmian. Zatwierdź ustalenia, dopiero potem utwórz instrukcje. Nie wpisuj nieistniejących poleceń.</p>
+<p><strong>Przykład:</strong> "Przed dodaniem walidatora znajdź istniejący. Po zmianie pokaż diff, wykonane testy i niewykonane kontrole". Wspólne reguły trzymaj w jednym źródle; dla Claude można użyć <code>CLAUDE.md</code> z importem <code>@AGENTS.md</code>. Dla Copilota sprawdź, które pliki stosuje wybrany interfejs.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 4: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.claude.com/docs/en/memory">Claude Code: pamięć i reguły</a>, <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Codex: AGENTS.md</a>, <a href="https://docs.github.com/en/copilot/reference/customization-cheat-sheet">Copilot: mapa instrukcji, skills i hooków</a>.</p>
+</article>
+<article class="qa-card" id="podzial-regul">
+<h2>Jeden duży plik czy instrukcje według domen i zadań?</h2>
+<p><strong>Fakty:</strong> Claude Code obsługuje <code>.claude/rules/*.md</code> z polem <code>paths</code>, a Copilot instrukcje ścieżkowe <code>.github/instructions/*.instructions.md</code> z <code>applyTo</code>. Codex buduje instrukcje ze ścieżki od katalogu projektu do katalogu startowego; nie zakładaj, że wszystkie zagnieżdżone pliki wczyta przy starcie.</p>
+<p><strong>Zalecenie:</strong> w głównym pliku umieść reguły całego repo. Reguły domeny dopisz blisko kodu, a procedurę konkretnego rodzaju pracy zapisz jako skill. Nie powielaj tej samej treści w wielu plikach.</p>
+<p><strong>Przykład:</strong> główna reguła zakazuje zmiany publicznego API bez decyzji; instrukcja katalogu płatności wymaga testu ponowienia żądania. Przed zmianą poproś agenta o wskazanie aktywnych instrukcji i sprawdź to małą próbą.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 4: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.claude.com/docs/en/memory">Claude Code: pamięć i reguły</a>, <a href="https://learn.chatgpt.com/docs/agent-configuration/agents-md">Codex: AGENTS.md</a>, <a href="https://code.visualstudio.com/docs/agent-customization/custom-instructions">VS Code: zakres instrukcji</a>.</p>
+</article>
+<article class="qa-card" id="hooki">
+<h2>Jak egzekwować reguły i uporządkować wymagania jakościowe?</h2>
+<p><strong>Fakty:</strong> instrukcje językowe mogą zostać pominięte. Hooki uruchamiają kod na zdarzeniu; konfiguracja i odpowiedź blokująca zależą od narzędzia. W Claude Code i Codex zdarzenie nazywa się <code>PreToolUse</code>, w Copilocie <code>preToolUse</code>.</p>
+<p><strong>Zalecenie:</strong> każdą regułę opisz przez warunek i dowód. Wymagania niefunkcjonalne powiąż z testem lub pomiarem; architekturę z ADR i zależnościami; commity z małym zakresem; samosprawdzenie z konkretnymi poleceniami i wynikiem. Twarde zakazy wesprzyj uprawnieniami, hookiem i CI.</p>
+<p><strong>Próba:</strong> w <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/main/course-materials/hooks-example/">przykładach hooków</a> porównaj blokowany odczyt fikcyjnego <code>.env</code> z dozwolonym <code>.env.example</code>. Obejrzyj skrypt i scal konfigurację, zamiast zastępować dotychczasową. W Codex przejrzyj i zatwierdź hooki przez <code>/hooks</code>. Wzorce w przykładzie nie obejmują każdej składni powłoki i nie zastępują izolacji ani skanera sekretów.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 4; bezpieczeństwo: moduł 7: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.claude.com/docs/en/hooks">Claude Code: schemat hooków</a>, <a href="https://learn.chatgpt.com/docs/hooks">Codex: hooki</a>, <a href="https://docs.github.com/en/copilot/reference/hooks-reference">Copilot: hooki</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/main/course-materials/hooks-example/">Kod i testy demonstracyjne</a>.</p>
+</article>
+<article class="qa-card" id="zadania">
+<h2>Jak dzielić zadania i opisać kryteria jakości kodu?</h2>
+<p><strong>Zalecenie:</strong> jedno zadanie powinno dać jeden wynik, który da się osobno odebrać. Brief zawiera cel użytkownika, zakres plików, ograniczenia, kryteria akceptacji i sposób sprawdzenia. Zależności realizuj po kolei; prace niezależne można rozdzielić.</p>
+<p><strong>Przykład:</strong> "Dodaj walidację numeru zgłoszenia. Pusty numer pokazuje komunikat, poprawny tworzy jedno zgłoszenie, ponowne kliknięcie nie dubluje zapisu. Użyj istniejącego walidatora. Nie zmieniaj API ani zależności. Pokaż testy tych zachowań i diff". Jakość oznacza zgodność z zachowaniem i konwencjami projektu, a nie samą kompilację.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduły 2-3: <a href="Prezentacja_05_Implementacja.html">Implementacja</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Course%20Notes%20-%20AI%20in%20Programming.md">Notatki do kursu</a>.</p>
+</article>
+<article class="qa-card" id="kolejnosc">
+<h2>Jaka kolejność pracy i ile człowieka w pętli?</h2>
+<p><strong>Zalecenie:</strong> kontekst i specyfikacja, decyzje architektoniczne, plan, mała implementacja z testami, review, akceptacja i scalenie. Testy planujesz przy wymaganiach; przy zmianie zachowania warto najpierw uzyskać test, który wykazuje brak funkcji lub błąd.</p>
+<p>Człowiek zatwierdza wymagania, ryzykowne decyzje, dostęp do danych i wynik przed scaleniem. Agent może sam wykonać odwracalne kroki w zaakceptowanym zakresie. Nie potrzebujesz zgody po każdym odczycie pliku.</p>
+<p><strong>Przykład:</strong> zatwierdź regułę zwrotu towaru i przypadki brzegowe. Pozwól agentowi zaimplementować jeden przypadek, a potem porównaj działanie z kryteriami, zamiast akceptować samo "gotowe".</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduły 2-3; dzień 2, moduł 9: <a href="Prezentacja_05_Implementacja.html">Implementacja</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Course%20Notes%20-%20AI%20in%20Programming.md">Notatki do kursu</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/AGENDA.md">Program szkolenia</a>.</p>
+</article>
+<article class="qa-card" id="testy">
+<h2>Czy po każdym cyklu uruchamiać wszystkie testy?</h2>
+<p><strong>Zalecenie:</strong> dobieraj testy do wpływu i ryzyka zmiany. W krótkiej pętli uruchom test zmienionego zachowania, testy bezpośrednich zależności oraz szybkie kontrole statyczne. Przy zmianie wspólnego kontraktu, schematu danych lub konfiguracji rozszerz zakres. Przed scaleniem muszą przejść wymagane kontrole CI; nie pomijaj ich dlatego, że agent wykonał test jednostkowy.</p>
+<p><strong>Przykład:</strong> zmiana walidacji formularza wymaga testów walidatora i wysyłania formularza; zmiana wspólnego modelu zgłoszenia także testów API i zapisu. Poproś: "Wskaż zależne moduły, wybierz testy i uzasadnij pominięte". Sprawdź, czy test umie wykryć celowo wprowadzony błąd, a nie tylko powtarza implementację.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 5: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Course%20Notes%20-%20AI%20in%20Programming.md">Notatki do kursu</a>.</p>
+</article>
+<article class="qa-card" id="worktrees">
+<h2>Jak pracować kilkoma agentami w jednym repozytorium?</h2>
+<p><strong>Fakt:</strong> Git worktree daje dodatkowy katalog roboczy z własnym indeksem i checkoutem, przy współdzielonym repozytorium Git. Nie izoluje sam z siebie procesów, sieci ani sekretów.</p>
+<p><strong>Zalecenie:</strong> zacznij od jednego agenta. Przy równoległej implementacji osobne branche i worktree ułatwiają rozdzielenie zmian. Wspólny katalog dopuszczaj tylko przy rozłącznych plikach i jednym koordynatorze operacji Git. Nie pozwalaj agentom równocześnie przełączać brancha ani aktualizować lockfile.</p>
+<p><strong>Przykład:</strong> agent A zmienia walidator, agent B tylko dokumentację; wspólny kontrakt zatwierdzacie wcześniej. Koordynator sprawdza oba diffy, scala i testuje całość. Dla worktree zaplanuj osobne porty, zależności i usunięcie katalogu po zakończeniu; koszt zależy od projektu i menedżera pakietów.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 8: <a href="Prezentacja_11_Zespol.html">Zespół</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://git-scm.com/docs/git-worktree">Git: worktree</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/agent-managers-and-remote-agents.md">Notatka: agent-managers-and-remote-agents</a>.</p>
+</article>
+<article class="qa-card" id="legacy">
+<h2>Jak wprowadzić agenta do dużego istniejącego projektu?</h2>
+<p><strong>Zalecenie:</strong> zacznij w trybie odczytu od inwentarza modułów, manifestów, punktów wejścia, CI i sposobu uruchomienia. Zapisz krótką mapę repo i instrukcje. Potem prześledź jeden rzeczywisty przepływ wraz z testami i konfiguracją, zanim zlecisz zmianę.</p>
+<p><strong>Przykład:</strong> "Pokaż drogę od formularza do zapisu zgłoszenia. Każdą zależność uzasadnij plikiem i symbolem; zaznacz luki. Nie edytuj".</p>
+<p><strong>Wniosek z próby opisanej w notatce:</strong> repo map daje szkic struktury, graf pomaga szukać wywołań, ale relacje wywnioskowane i brak odwołań wymagają sprawdzenia w źródłach. Nie uznawaj klasy za martwą tylko dlatego, że indeks jej nie połączył. Wyniki małej próby nie gwarantują kompletności dla firmowego monorepo.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduły 2 i 4: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/legacy-repository-analysis.md">Notatka: legacy-repository-analysis</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/code-graph-tools-vs-repo-maps-2026-10-14.md">Notatka: code-graph-tools-vs-repo-maps-2026-10-14</a>.</p>
+</article>
+<article class="qa-card" id="koszty">
+<h2>Jak ograniczać kontekst i kiedy wybrać droższy model?</h2>
+<p><strong>Fakty:</strong> okno kontekstowe obejmuje instrukcje, historię, wyniki narzędzi i odpowiedź. Jego rozmiar oraz reguły naliczania zależą od modelu. Abonament narzędzia i opłaty API to odrębne rozliczenia. Poniżej standardowe ceny API w USD za milion tokenów, wejście bez cache i wyjście; dla OpenAI wariant krótkiego kontekstu. Sprawdzono 2026-10-17.</p>
+<table><caption>Przykłady cen API, nie ceny licencji na kurs</caption>
+<thead>
+<tr><th scope="col">Model</th><th scope="col">Wejście</th><th scope="col">Wyjście</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>GPT-6 Astra</td><td>10 USD</td><td>50 USD</td>
+</tr>
+<tr><td>GPT-6.1 Sol</td><td>2 USD</td><td>10 USD</td>
+</tr>
+<tr><td>GPT-6 Luna</td><td>0,10 USD</td><td>0,50 USD</td>
+</tr>
+<tr><td>Claude Opus 5.5</td><td>4 USD</td><td>20 USD</td>
+</tr>
+<tr><td>Claude Sonnet 5.5</td><td>2 USD</td><td>10 USD</td>
+</tr>
+<tr><td>Claude Haiku 5.5, prompt do 100 tys. tokenów</td><td>0,10 USD</td><td>0,50 USD</td>
+</tr>
+</tbody>
+</table>
+<p>Długi kontekst, zapis i odczyt cache oraz szybsze tryby mają inne stawki. Haiku powyżej 100 tys. tokenów kosztuje 0,50/2,50 USD za milion wejścia/wyjścia. Sprawdź tabelę dostawcy przed użyciem.</p>
+<p><strong>Zalecenie:</strong> mocniejszy model wybierz do niejasnej architektury, trudnego błędu lub oceny ryzyka; tańszy do ograniczonej zmiany ze ścisłymi kryteriami. Przekazuj mapę i potrzebne pliki zamiast całego repo. Po etapie zapisz decyzje i wyniki kontroli, a nowej sesji podaj te artefakty.</p>
+<p><strong>Przykład:</strong> 100 tys. tokenów wejścia i 10 tys. wyjścia to dla Sol 0,30 USD, a dla Luna 0,015 USD, bez cache i innych opłat. Porównuj koszt zaakceptowanego wyniku wraz z poprawkami, nie samą stawkę tokena.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 8: <a href="Prezentacja_11_Zespol.html">Zespół</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://developers.openai.com/api/docs/pricing">OpenAI: ceny API</a>, <a href="https://claude.com/pricing">Anthropic: ceny API</a>, <a href="https://code.claude.com/docs/en/costs">Claude Code: zużycie kontekstu</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/token-optimization-limits-resets.md">Notatka: token-optimization-limits-resets</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/price-of-intelligence-2026-10-14.md">Notatka: price-of-intelligence-2026-10-14</a>.</p>
+</article>
+<article class="qa-card" id="review">
+<h2>Jak oceniać kod agenta i używać AI do review kodu człowieka?</h2>
+<p><strong>Fakt:</strong> Copilot code review może proponować uwagi do zmian w PR, lecz nie zastępuje przeglądu człowieka. Kod napisany przez człowieka i agenta oceniaj według tych samych kryteriów.</p>
+<p><strong>Zalecenie:</strong> daj recenzentowi diff, wymaganie, istniejące wzorce i wyniki testów. Poproś o usterki z warunkiem wystąpienia, skutkiem i lokalizacją, nie o kosmetykę. Sprawdź bezpieczeństwo, zgodność zachowania, przypadki brzegowe, zależności i niepotrzebne abstrakcje.</p>
+<p><strong>Przykład:</strong> przed dodaniem klienta API agent ma wyszukać istniejący klient i opisać różnicę. Recenzent dostaje polecenie: "Znajdź błąd i pokaż odtwarzający go test. Nie zmieniaj plików". Drugi model daje dodatkową perspektywę, ale jego zgodność z pierwszym nie jest dowodem poprawności.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 6: <a href="Prezentacja_06_Review_CI.html">Review i CI</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://docs.github.com/en/copilot/concepts/agent-capabilities/agent-powered-workflows-and-operations/code-review">GitHub: code review</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/agent-configs/copilot/agents/CodeReview.agent.md">Przykład agenta do review</a>.</p>
+</article>
+<article class="qa-card" id="zespoly">
+<h2>Jakie praktyki wdrażać w wielu zespołach?</h2>
+<p><strong>Zalecenie:</strong> wspólne minimum to klasy danych dopuszczonych do agenta, zasady zgód, małe PR, instrukcje repo, testy w CI i człowiek odpowiedzialny za scalenie. Domeny dopisują własne reguły zamiast kopiować wielką centralną instrukcję.</p>
+<p><strong>Przykład pilota:</strong> wybierz powtarzalny rodzaj zadania w kilku repozytoriach. Porównaj czas od wymagania do zaakceptowanego PR, liczbę poprawek i regresji oraz koszt. Zapisz przypadki, w których AI nie pomogła. Zespół utrzymuje instrukcje razem z kodem i usuwa reguły, które się zdezaktualizowały.</p>
+<p>Administrator może ograniczać funkcje narzędzi polityką organizacji; dostępność funkcji w dokumentacji nie oznacza zgody na użycie firmowych danych.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 8: <a href="Prezentacja_11_Zespol.html">Zespół</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://docs.github.com/en/copilot/reference/customization-cheat-sheet">Copilot: mapa instrukcji, skills i hooków</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/main/course-materials/agent-configs/">Przykłady konfiguracji i ograniczeń</a>.</p>
+</article>
+<article class="qa-card" id="ide">
+<h2>Jak współpracują AI, agent, GitHub i IDE, także Eclipse z Javą?</h2>
+<p><strong>Fakty:</strong> model generuje odpowiedzi; agent dodaje odczyt plików, edycję i polecenia. IDE służy do pracy z kodem, a GitHub hostuje repozytorium i przeglądy. Agent lokalny może pracować przed wysłaniem zmian do GitHuba.</p>
+<ul>
+<li><strong>Eclipse:</strong> GitHub Copilot ma rozszerzenie z czatem i trybem Agent. Otwórz Copilot Chat, wybierz Agent, wskaż zadanie i przejrzyj zmiany oraz polecenia.</li>
+<li><strong>Claude Code:</strong> oficjalna integracja JetBrains współpracuje z CLI; zewnętrzny terminal można połączyć przez <code>/ide</code>. Dokumentacja nie potwierdza analogicznej oficjalnej wtyczki do Eclipse.</li>
+<li><strong>Codex:</strong> oficjalna dokumentacja wskazuje rozszerzenie dla VS Code i zgodnych edytorów oraz integrację JetBrains przez AI Chat. Nie potwierdza oficjalnego rozszerzenia Eclipse.</li>
+<li><strong>Terminal obok IDE:</strong> Claude Code i Codex CLI mogą pracować w katalogu projektu Java otwartym w Eclipse. IDE i agent muszą widzieć te same pliki; zapisz zmiany w edytorze i sprawdzaj diff.</li>
+</ul>
+<p><strong>Start:</strong> zbuduj mały formularz zgłoszenia z jednym scenariuszem, testem i commitem. Osoba nieprogramująca prosi o wyjaśnienie każdego zmienionego pliku i sama sprawdza zachowanie. GitHub dołącz po lokalnej weryfikacji.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 1: <a href="Prezentacja_03_Narzedzia.html">Narzędzia</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://docs.github.com/en/copilot/how-tos/copilot-in-your-ide/use-copilot-agents/use-agent-mode?tool=eclipse">GitHub: Agent w Eclipse i JetBrains</a>, <a href="https://code.claude.com/docs/en/jetbrains">Claude Code: JetBrains</a>, <a href="https://learn.chatgpt.com/docs/codex/ide">Codex: IDE</a>, <a href="https://learn.chatgpt.com/docs/codex/cli">Codex: terminal</a>, <a href="https://code.claude.com/docs/en/cli-reference">Claude Code: terminal</a>.</p>
+</article>
+<article class="qa-card" id="bash">
+<h2>Jak używać agenta w bashu i ograniczać AI, żeby rozumieć wynik?</h2>
+<p><strong>Fakty:</strong> Claude Code i Codex to także narzędzia terminalowe; uruchomienie <code>claude</code> lub <code>codex</code> rozpoczyna interaktywną pracę. Dostęp do powłoki zależy od uprawnień sesji.</p>
+<p><strong>Zalecenie:</strong> zostaw zwykłe polecenia powłoce, a AI użyj tam, gdzie potrzebujesz analizy albo zmiany. Zacznij od <code>git status</code> i <code>git diff</code>; agent nie musi pośredniczyć w każdym poleceniu.</p>
+<p><strong>Przykład promptu:</strong> "Wyjaśnij ten błąd i zaproponuj jedno polecenie diagnostyczne. Nie zmieniaj plików. Opisz jego działanie i wynik, którego oczekujesz". Następnie wykonaj polecenie świadomie. Po zmianie poproś o wyjaśnienie diffu i sprawdź, czy umiesz opisać przepływ własnymi słowami.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduły 1 i 3: <a href="Prezentacja_03_Narzedzia.html">Narzędzia</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.claude.com/docs/en/cli-reference">Claude Code: CLI</a>, <a href="https://learn.chatgpt.com/docs/codex/cli">Codex: CLI</a>.</p>
+</article>
+<article class="qa-card" id="web-mobile">
+<h2>Jak przejść od makiety do większego systemu web i mobile?</h2>
+<p><strong>Zalecenie:</strong> makieta opisuje wygląd i część interakcji, ale nie ustala uprawnień, modelu danych, integracji ani zachowania przy błędach. Najpierw spisz role, przepływy i kryteria akceptacji. Dopiero potem wybierz architekturę w ADR i podziel rozwój na małe pionowe fragmenty.</p>
+<p><strong>Przykład:</strong> pierwszy fragment obejmuje utworzenie zgłoszenia, walidację, zapis i odczyt statusu. Web i mobile korzystają z uzgodnionego kontraktu API. Każdy fragment ma test kontraktu, test błędnego wejścia i demonstrację zachowania. Osobno ustal logowanie, prywatność, tryb offline, powiadomienia i wdrażanie.</p>
+<p>Nie zlecaj "zbuduj cały system z obrazka". Po pierwszym fragmencie oceń kod i dopiero rozpisz następny. Warsztat ćwiczy ten proces; kompletna aplikacja mobilna wymaga osobnego zakresu.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 2; dzień 2, moduł 9: <a href="Prezentacja_05_Implementacja.html">Implementacja</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Course%20Notes%20-%20AI%20in%20Programming.md">Notatki do kursu</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/AGENDA.md">Program: projekt end-to-end</a>.</p>
+</article>
+<article class="qa-card" id="cofanie">
+<h2>Jak cofnąć pracę agenta?</h2>
+<p><strong>Fakty:</strong> Copilot CLI udostępnia <code>/undo</code> i alias <code>/rewind</code>: cofnięcie rozmowy albo rozmowy i śledzonych plików. Pliki później zmienione ręcznie są pomijane; cofanie nie działa w sesji zdalnej ani podczas trwającej pracy. VS Code oferuje przywracanie checkpointów w przeglądzie zmian.</p>
+<p><strong>Zalecenie:</strong> najpierw obejrzyj podgląd, potem sprawdź <code>git status</code> i <code>git diff</code>. Wycofanie rozmowy nie odwraca wysłanej wiadomości ani operacji na zewnętrznym systemie. Mały, sprawdzony commit daje niezależny punkt powrotu. Nie cofaj cudzej niezapisanej pracy.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 3: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/use-copilot-cli/roll-back-changes">Copilot: cofanie i ograniczenia</a>, <a href="https://code.visualstudio.com/docs/agents/run/review-code-edits">VS Code: checkpointy</a>.</p>
+</article>
+<article class="qa-card" id="uprawnienia">
+<h2>Co odróżnia zgody na narzędzia od samodzielnego kontynuowania pracy?</h2>
+<p><strong>Fakty:</strong> w VS Code poziom zgód określa, które wywołania wymagają potwierdzenia; Autopilot dotyczy autonomii sesji. Dostępność poziomów i ich ustawień zależy od wybranego harnessu oraz polityki organizacji. Włączenie narzędzia nie oznacza automatycznej zgody na każdą akcję.</p>
+<p><strong>Zalecenie:</strong> zacznij od ograniczonego zapisu do projektu i kontroli operacji sieciowych. Pozwalaj na powtarzalne, odwracalne kroki w uzgodnionym zakresie. Publikację, migrację danych i działania na produkcji oceniaj osobno.</p>
+<p><strong>Przykład:</strong> uruchomienie lokalnego testu może być dozwolone, a wysłanie pliku na obcy serwer wymaga zatrzymania i wyjaśnienia. Przejrzyj uprawnienia w swojej wersji narzędzia, zanim zwiększysz autonomię.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 7: <a href="Prezentacja_09_Bezpieczenstwo.html">Bezpieczeństwo</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.visualstudio.com/docs/agents/run/approvals">VS Code: zgody</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/main/course-materials/agent-configs/">Przykładowe reguły narzędzi</a>.</p>
+</article>
+<article class="qa-card" id="skills">
+<h2>Dlaczego skill lub instrukcja nie działa w moim IDE?</h2>
+<p><strong>Fakt:</strong> obsługa instrukcji, skills i hooków różni się między interfejsami Copilota. Dokumentacja wymienia projektowe katalogi skills, w tym <code>.agents/skills/&lt;nazwa&gt;/SKILL.md</code>, ale nie każda funkcja działa na każdej powierzchni.</p>
+<p><strong>Zalecenie:</strong> sprawdź wersję rozszerzenia, aktualną macierz wsparcia i wybranego agenta. Potwierdź, czy plik został wykryty i zastosowany. Nie kopiuj go w wiele miejsc bez diagnozy. Skill zapisany w katalogu materiałów kursu jest przykładem do adaptacji, nie automatyczną konfiguracją ćwiczonej aplikacji.</p>
+<p><strong>Próba:</strong> użyj prostej, łatwej do rozpoznania reguły w nieszkodliwym zadaniu. Jeśli agent jej nie zastosuje, sprawdź zakres i logi ładowania przed wydłużaniem promptu.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 4: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://docs.github.com/en/copilot/reference/customization-cheat-sheet">Copilot: mapa instrukcji, skills i hooków</a>, <a href="https://docs.github.com/en/copilot/reference/copilot-feature-matrix">Copilot: macierz funkcji</a>.</p>
+</article>
+<article class="qa-card" id="historia">
+<h2>Gdzie trafia historia sesji i czy mogę ją synchronizować?</h2>
+<p><strong>Fakty:</strong> w VS Code synchronizację historii kontroluje <code>chat.sessionSync.enabled</code>; można wykluczać repozytoria przez <code>chat.sessionSync.excludeRepositories</code>. Polityka organizacji może wymusić wyłączenie. Zsynchronizowane sesje są powiązane z osobistym kontem GitHub i domyślnie prywatne.</p>
+<p><strong>Zalecenie:</strong> przed pracą na kodzie firmy sprawdź ustawienia i politykę. Przy przekazaniu zadania zapisz decyzje, zakres zmian i wyniki testów w repozytorium lub uzgodnionym narzędziu. Sama historia rozmowy nie zastępuje dokumentacji projektu. Przykład: kolejna sesja zaczyna od planu i aktualnego diffu, zamiast zgadywać stan z poprzedniej rozmowy.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 7: <a href="Prezentacja_09_Bezpieczenstwo.html">Bezpieczeństwo</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.visualstudio.com/docs/agents/run/sessions/session-history">VS Code: historia i polityki</a>.</p>
+</article>
+<article class="qa-card" id="indeks">
+<h2>Czy Copilot indeksuje repozytorium i czy muszę dodawać #codebase?</h2>
+<p><strong>Fakty:</strong> Copilot w VS Code udostępnia wyszukiwanie semantyczne <code>#codebase</code>. Agent może użyć go samodzielnie. Edytor automatycznie utrzymuje indeks; źródło indeksu zależy od repozytorium i środowiska. Polecenie <code>Build Codebase semantic index</code> pozwala zażądać budowy lub przebudowy.</p>
+<p><strong>Zalecenie:</strong> pytaj o konkretny przepływ i żądaj lokalizacji w źródłach. Przykład: "Gdzie sprawdzamy prawo do zwrotu? Pokaż funkcję, wywołania i testy". Wynik wyszukiwania pomaga znaleźć kod, ale nie dowodzi kompletności zależności ani aktualności wszystkich założeń.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduły 2 i 4: <a href="Prezentacja_04_Workflow.html">Workflow</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.visualstudio.com/docs/agents/reference/workspace-context">VS Code: kontekst i indeks</a>.</p>
+</article>
+<article class="qa-card" id="harness">
+<h2>Co oznacza Agent Host i gdzie wykonuje się kod?</h2>
+<p><strong>Fakt:</strong> VS Code rozróżnia lokalnego agenta rozszerzenia i Agent Host, osobny proces obsługujący agentów. Nazwa "Local" nie dowodzi, że model działa na Twoim komputerze. Miejsce wykonywania poleceń i dostawca modelu to dwa osobne ustalenia.</p>
+<p><strong>Zalecenie:</strong> przed zapisem poproś o katalog roboczy, system i gałąź. W pracy zdalnej potwierdź, czy terminal, IDE i agent używają tego samego środowiska. Przykład: plik zmieniony w Linuksie w WSL musi być tym samym plikiem, który oglądasz w IDE, a nie drugą kopią projektu.</p>
+<p class="qa-demo">Na zajęciach: dzień 1, moduł 1: <a href="Prezentacja_03_Narzedzia.html">Narzędzia</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.visualstudio.com/docs/agents/concepts/agent-host">VS Code: Agent Host</a>.</p>
+</article>
+<article class="qa-card" id="organizacja">
+<h2>Czy własny klucz API albo lokalny agent oznacza pracę offline?</h2>
+<p><strong>Fakt:</strong> własny klucz API określa rozliczenie i dostawcę; nie dowodzi lokalnego przetwarzania. Lokalnie uruchomiony agent może wysyłać kontekst do modelu w chmurze. Obsługa własnych modeli i protokołów zależy od narzędzia.</p>
+<p><strong>Zalecenie:</strong> rozdziel zgodę organizacji, lokalizację danych, dostawcę i rozliczenie. Dla pracy offline potrzebujesz także lokalnego modelu i zależności, które nie wymagają sieci. Przed użyciem sprawdź konfigurację na syntetycznym projekcie, zamiast wnioskować z etykiety "local" lub "BYOK".</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduł 7: <a href="Prezentacja_09_Bezpieczenstwo.html">Bezpieczeństwo</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.visualstudio.com/docs/agent-customization/language-models">VS Code: modele</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/main/course-materials/agent-configs/">Konfiguracje dostawców</a>.</p>
+</article>
+<article class="qa-card" id="cicd">
+<h2>Jak wykorzystać agenta w CI/CD?</h2>
+<p><strong>Fakty:</strong> Claude Code ma tryb nieinteraktywny <code>claude -p</code>, a Codex <code>codex exec</code>. Można uruchamiać je ze skryptu, przy odpowiednim dostępie i uwierzytelnieniu. Przykłady kursu obejmują automatyczne review; konfigurację trzeba dopasować do hostingu i polityki organizacji.</p>
+<p><strong>Zalecenie:</strong> zacznij od raportu do PR bez prawa zapisu i publikacji. Testy, lint i skaner sekretów pozostają niezależnymi kontrolami. Agent może analizować diff i wskazać ryzyka, człowiek ocenia uwagi i decyduje o scaleniu. Kod z PR traktuj jako niezaufany; nie uruchamiaj go z sekretami produkcyjnymi.</p>
+<p class="qa-demo">Na zajęciach: dzień 2, moduły 6-7: <a href="Prezentacja_06_Review_CI.html">Review i CI</a>.</p>
+<p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://code.claude.com/docs/en/headless">Claude Code: tryb programowy</a>, <a href="https://learn.chatgpt.com/docs/non-interactive-mode">Codex: exec</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/main/course-materials/cicd-headless/agent-review/">Przykłady automatycznego review</a>.</p>
+</article>
+</main>
+<footer class="qa-foot">
+<div class="hub-container"><a href="index.html">Wszystkie materiały</a><a href="raport-przed.html">Wyniki ankiety</a><a href="agenda.html#prezentacje">Prezentacje</a><span>Vibe coding - Future Skills Institute - 17-18.10.2026</span>
+</div>
+</footer><script>(function(){var b=document.getElementById('themeToggle');function apply(t){document.documentElement.dataset.theme=t;document.body.dataset.theme=t;b.setAttribute('aria-pressed',String(t==='light'));b.textContent=t==='light'?'Motyw: jasny':'Motyw: ciemny'}apply(document.documentElement.dataset.theme==='light'?'light':'dark');b.addEventListener('click',function(){var t=document.documentElement.dataset.theme==='light'?'dark':'light';apply(t);try{localStorage.setItem('developer-course-theme',t)}catch(_){}})})();</script>
+</body>
+</html>
