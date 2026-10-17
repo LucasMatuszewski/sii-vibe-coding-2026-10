@@ -19,6 +19,7 @@ Notes from course for JSystem — AI dla programistów: od pomysłu do MVP
     - "[the era of humans writing code is over.](https://x.com/kimmonismus/status/2013524952553492933)" (Node.js creator on AI generating code)
   - Microsoft named their new Power Apps platform Vibe - we prompt to build apps: [Vibe - Power Apps](https://vibe.powerapps.com/) (only in US right now) | Docs: [Omówienie nowego środowiska usługi Power Apps - Power Apps | Microsoft Learn](https://learn.microsoft.com/pl-pl/power-apps/vibe/overview)
   - Vibe Coding definition: [X.com](https://x.com/karpathy/status/1886192184808149383?lang=en)
+  - Vibe Engineering (Simon Willison, 7.10.2025), stages 0-5 and two AI Engineer talks: "Why Software Factories Fail" (Dex Horthy) and "Fixing the PR Bottleneck" (Matt Pocock), checked 2026-10-17: [vibe-coding-vs-vibe-engineering-2026-10-17.md](Research/vibe-coding-vs-vibe-engineering-2026-10-17.md)
 - **Context rot & Context engineering**
 - **Async Codding Agents in Cloud & on Mobile**
 - CLI tools, Automation (Auto Review, Auto Mode, Schedules/Rutines, Loops), YOLO in container/cloud or local device (e.g. mac mini, Nvidia DGX Spark, AMD Strix Halo)
