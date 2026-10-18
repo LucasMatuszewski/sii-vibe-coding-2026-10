@@ -2,6 +2,8 @@
 
 Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią nieodwracalnej anonimizacji. Reakcje oznaczają zliczenia przy wiadomościach, nie rozłączne głosy ani liczbę uczestników.
 
+Zapis po korekcie redakcyjnej prowadzącego: poprawiono literówki, usunięto omyłkowe powtórzenia i dodano objaśnienia oraz linki po szkoleniu. Dopiski bez godziny są uzupełnieniami prowadzącego.
+
 ## Wiadomości
 
 - **08:03 — M.M.:** obejrzalem lights on factories ten yt i gosc mnie nie przekonal w ogole
@@ -29,7 +31,7 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 - **08:21 — Łukasz Matuszewski:** https://x.com/elder_plinius
 
 - **08:23 — Łukasz Matuszewski:** https://handy.computer/  
-  STT Transkrypcja
+  STT Transkrypcja Open Source
 
 - **08:23 — M.M.:** on tlumaczy z polskiego na angielski on the fly?
 
@@ -102,11 +104,11 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
   *Reakcje: 🙃: 1.*
 
 - **10:06 — Łukasz Matuszewski:** chrome://inspect/#remote-debugging  
-  Debbug in Chrome
+  Debug in Chrome
 
 - **10:06 — M.G.:** klawisz F11 z focusem na Chrome
 
-- **10:09 — Łukasz Matuszewski:** You already have the DevTools traces to run Lighthouse and performance tests for the sii page: https://sii.pl/  
+- **10:09 — Łukasz Matuszewski:** Use the DevTools traces to run Lighthouse and performance tests for the sii page: https://sii.pl/  
   You currently have Debug Mode running in my regular Chrome, so try to access the memory resources as well and analyze a bit more what's happening inside, also using this debugging mode, which allows you to get more precise access to what's happening in the application.  
   chrome://inspect/#remote-debugging  
   Instead of using the built-in anonymous Chroma profile, please use my profile, so that you log in to that site as me, because some different things will be available there.
@@ -114,18 +116,18 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 - **10:17 — M.M.:** no ten prompt nie dziala, prosi mnie o pozwolenie kontrolowania komputera? odmowilem  
   *Odpowiedź do Łukasz Matuszewski (10:09).*
 
-- **10:10 — Łukasz Matuszewski:** https://restic.net/
+- **10:10 — Łukasz Matuszewski:** Backups Restic - https://restic.net/
 
-- **10:14 — Łukasz Matuszewski:** Timeshift - odpowiednik restor point na Windows
+- **10:14 — Łukasz Matuszewski:** Timeshift - odpowiednik restore point na Windows
 
 - **10:15 — Łukasz Matuszewski:** https://github.com/linuxmint/timeshift
 
 - **10:19 — M.M.:** KROTKI PROMPT :D
 
-- **10:20 — Łukasz Matuszewski:** You already have the DevTools traces to run Lighthouse and performance tests for the sii page: https://sii.pl/  
+- **10:20 — Łukasz Matuszewski:** Use the DevTools traces to run Lighthouse and performance tests for the sii page: https://sii.pl/  
   You currently have Debug Mode running in my regular Chrome, so try to access the memory resources as well and analyze a bit more what's happening inside, also using this debugging mode, which allows you to get more precise access to what's happening in the application.  
   chrome://inspect/#remote-debugging  
-  Instead of using the built-in anonymous Chroma profile, please use my profile, so that you log in to that site as me, because some different things will be available there.
+  Instead of using the built-in anonymous Chrome profile, please use my profile, so that you log in to that site as me, because some different things will be available there.
 
 - **10:21 — Łukasz Matuszewski:** Also look for the best skills and good practices for measuring performance. You can use the skills.sh tool from Vercel, the skill search tool, or other tools for this purpose to find good practices for measuring performance. You probably also have a built-in skill for DevTools, so you can check what they recommend there too. But make sure you know how to measure performance well and how to create a good report based on it. Finally, I want you to create a visual report, a simpler version in Markdown,
 
@@ -139,12 +141,12 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 
 - **10:29 — T.K.2:** Czy możesz póżniej pokazać gdzie / jak w aplikacji desktop claude codę i Codex instalować te del tools?
 
-- **10:31 — Łukasz Matuszewski:** ja zrobiłem to po prostu promptem i agent to dla mnie zrobił:  
-  Install DevTools Chroma here using the link below. We'd like to be able to use Chrome DevTools CLI and MCP; we'd mainly like to use the CLI, and I think there are also some skills to install there, so just configure it here inside Claude Desktop. https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main  
-  *Odpowiedź do T.K.2 (10:29). Reakcje: 👍: 1.*
-
-- **10:31 — Łukasz Matuszewski:** ale pokażę też config dla mcp  
-  *Odpowiedź do T.K.2 (10:29).*
+  - **10:31 — Łukasz Matuszewski:** ja zrobiłem to po prostu promptem i agent to dla mnie zrobił:  
+    Install DevTools Chroma here using the link below. We'd like to be able to use Chrome DevTools CLI and MCP; we'd mainly like to use the CLI, and I think there are also some skills to install there, so just configure it here inside Claude Desktop. https://github.com/ChromeDevTools/chrome-devtools-mcp/tree/main  
+    *Odpowiedź do T.K.2 (10:29). Reakcje: 👍: 1.*
+  
+  - **10:31 — Łukasz Matuszewski:** ale pokażę też config dla mcp  
+    *Odpowiedź do T.K.2 (10:29).*
 
 - **10:29 — T.K.2:** Do zob po przerwie
 
@@ -208,14 +210,18 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 - **12:20 — Łukasz Matuszewski:** Koniec przerwy 14:00
 
 - **13:07 — Łukasz Matuszewski:** https://code.claude.com/docs/en/remote-control
+  - synchronizacja zdalna sesji Claude
 
 - **13:07 — Łukasz Matuszewski:** /rc
 
 - **13:09 — Łukasz Matuszewski:** shift + tab  
   przełączanie trybów, np. Plan mode
 
-- **13:19 — M.M.:** duzo ladniej to wyglada niz to co Cdoex mi zrobil  
+- **13:19 — M.M.:** duzo ladniej to wyglada niz to co Codex mi zrobil  
   *Reakcje: 👍: 1.*
+
+  - **Łukasz Matuszewski:** Wystarczy dla Codex zainstalować skill, np. oficjalny, którego Claude używa ;)
+    - https://www.skills.sh/anthropics/skills/web-artifacts-builder
 
 - **13:23 — Łukasz Matuszewski:** Analiza Sii Performance - Claude Artifact:  
   https://claude.ai/artifact/VeCeCoyXGbE5kHHQthW154
@@ -245,19 +251,22 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 - **14:17 — Łukasz Matuszewski:** https://tauri.app/  
   Wypiera Electron
 
-- **14:28 — Łukasz Matuszewski:** odex exec -- --no-daemon --sandbox read-only "Przeczytaj README.md i opisz sposób uruchomienia. Nie zmieniaj plików."
-
 - **14:28 — Łukasz Matuszewski:** codex exec -- --no-daemon --sandbox read-only "Przeczytaj README.md i opisz sposób uruchomienia. Nie zmieniaj plików."
 
 - **14:34 — Łukasz Matuszewski:** https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Prompt%20examples/ADR-generation-typescript-vercel-ai-sdk.md
 
 - **14:36 — Łukasz Matuszewski:** You should use endpoints from OpenRouter that are specified with example ENV keys in @.env.example Docs from OpenRouter: https://openrouter.ai/docs
 
-- **14:58 — Łukasz Matuszewski:** pnpm workskpaces
+- **14:58 — Łukasz Matuszewski:** pnpm workspaces https://pnpm.io/workspaces
 
-- **14:58 — Łukasz Matuszewski:** https://navanathjadhav.medium.com/turborepo-vs-nx-i-migrated-a-monorepo-twice-to-compare-38e95e434273
+- **14:58 — Łukasz Matuszewski:** 
+  - Nx Monorepo supports officially: JS, .Net, Java.
+  - Plus they have community Python, Rust, Go, PHP.
+  - https://nx.dev/
+  - https://navanathjadhav.medium.com/turborepo-vs-nx-i-migrated-a-monorepo-twice-to-compare-38e95e434273
 
 - **14:59 — B.S.:** Google pracuje w monorepo
+  - [Why Google Stores Billions of Lines of Code in a Single Repository](https://research.google/pubs/why-google-stores-billions-of-lines-of-code-in-a-single-repository/)
 
 - **15:10 — Łukasz Matuszewski:** Analyze everything you did, see what mistakes you made here, what went well and what went poorly, how it could have been optimized next time, and create a new skill in my repository of public skills that will explain how to use these DevTools, how to install these DevTools, and the potential flow for creating exactly what we made, namely both this report here in Markdown and in HTML format, and I would like them always to be saved in the Docs folder.
 
@@ -284,6 +293,13 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 
 - **16:13 — M.M.:** a legacy skill?
 
+  - Legacy Codebase Workflows: https://github.com/EdukeyTeam/agent-toolbox/tree/main/skills/legacy-codebase-workflows
+  - Repo-map (plik z listą klas, funkcji, itd.),
+  - Repomix (plik z całym kodem + kompresja)
+  - Code Graph (graph zależności między częściami kodu)
+  - UML Architecture diagrams w Mermaid
+  - lokalny RAG dla Context7 (agent zadaje pytania Waszej dokumentacji i codebase)
+
 - **16:14 — M.G.:** muszę lecieć, dzięki za szkolenie :)
 
 - **16:15 — Łukasz Matuszewski:**
@@ -298,25 +314,20 @@ Wiadomości publiczne w kolejności chronologicznej. Pseudonimy nie stanowią ni
 
 - **16:15 — M.M.:** spoko :D
 
-- **16:16 — Łukasz Matuszewski:** ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔  
+- **16:16 — Łukasz Matuszewski:**
+  /config (to set AGENTS.md support inside Claude Code, alongside CLAUDE.md)
      Settings  Status   Config   Usage   Stats  
-     ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮  
-     │ ⌕ agents                                                                                                                                                                           │  
-     ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯  
-       Open agents view by default                 false  
-       ← opens agents                              true  
+     ⌕ agents
      ❯ Project instructions · cc-plugin-agents-md  claude-md-and-agents-md ›
 
 - **16:18 — M.M.:** Duzo praktycznych informacji jak zorganizowac prace w nowej rzeczywistosci, dziekuje bardzo za szkolenie. A z repozytoria sobie skorzystam dalej w celach dydaktycznych :)
 
-- **16:19 — Łukasz Matuszewski:** https://github.com/The-PR-Agent/pr-agent
+- **16:19 — Łukasz Matuszewski:** Open Source PR Code Review Agent: https://github.com/The-PR-Agent/pr-agent
 
 - **16:20 — Łukasz Matuszewski:** https://github.com/EdukeyTeam/agent-toolbox/tree/main/skills/legacy-codebase-workflows
 
 - **16:23 — Łukasz Matuszewski:** Context7 custom local backend RAG na waszym kodzie:  
   https://github.com/EdukeyTeam/agent-toolbox/blob/main/skills/legacy-codebase-workflows/references/private-retrieval.md
-
-- **16:25 — Łukasz Matuszewski:** [zredagowany adres e-mail]
 
 - **16:25 — Łukasz Matuszewski:** https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/index.html
 

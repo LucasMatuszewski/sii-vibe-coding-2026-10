@@ -1,5 +1,15 @@
 # Vibe coding - programowanie z agentami AI bez utraty kontroli
 
+## Aktualności po szkoleniu — 18.10.2026
+
+Dostępne są już zapisy czatu Zoom z obu dni: [dzień 1 — 17.10](course-materials/zoom-summary-chat-history/day-1-chat-history.md) i [dzień 2 — 18.10](course-materials/zoom-summary-chat-history/day-2-chat-history.md). Zawierają linki, prompty i pytania z zajęć; zapis dnia 2 uzupełniłem o dodatkowe objaśnienia.
+
+Trzy materiały do dalszej pracy:
+
+- **Wizualizacje i raporty HTML w Codexie:** [Web Artifacts Builder od Anthropic](https://www.skills.sh/anthropics/skills/web-artifacts-builder). Skill można wykorzystać także w Codexie do tworzenia interaktywnych raportów, dashboardów i wizualizacji danych. Pracuje w React, ale gotowy projekt pakuje do jednego pliku `bundle.html` z osadzonym JavaScriptem i CSS. W prompcie warto wprost poprosić o taki samodzielny plik HTML do otwarcia w przeglądarce.
+- **Monorepo dla aplikacji w różnych technologiach:** [Nx](https://nx.dev/docs/features/multi-language-support) pozwala zarządzać wspólnym repozytorium frontendu i backendów, także w Javie i .NET. Ma oficjalne integracje z Gradle, Maven i .NET oraz wspólny graf zależności, uruchamianie zadań i cache wyników. Można go wykorzystać do uporządkowania budowania i testowania kilku aplikacji w jednym repozytorium.
+- **CI/CD i automatyczne code review:** tego tematu nie zdążyliśmy omówić na zajęciach. W folderze [przykładów CI/CD](course-materials/cicd-headless/) znajdziecie konfiguracje pipeline’ów i agentów przeglądających pull requesty. Warto zajrzeć też do [PR-Agent](https://github.com/The-PR-Agent/pr-agent), narzędzia open source do wspomagania review, oraz [ćwiczenia z jego konfiguracją](course-materials/cicd-headless/PR-Agent-Qodo/README.md).
+
 **Materiały szkoleniowe: [devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/)**
 
 - [Agenda i wszystkie materiały](https://devpowers.com/szkolenia/futureskills/sii-vibe-coding-2026-10/agenda.html)
