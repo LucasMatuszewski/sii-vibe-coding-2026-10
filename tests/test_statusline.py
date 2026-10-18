@@ -1,6 +1,6 @@
 """Run the real status line against synthetic Claude Code stdin payloads.
 
-Run with: python3 -m unittest discover -s course-materials/agent-configs -p 'test_*.py'
+Run with: python3 -m unittest discover -s tests -p 'test_statusline.py'
 Set STATUSLINE_SCRIPT to check another copy of the script.
 """
 import json
@@ -9,11 +9,12 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import unittest
 
 
-SCRIPT = Path(os.environ.get("STATUSLINE_SCRIPT", Path(__file__).parent / "claude/statusline.sh")).resolve()
+SCRIPT = Path(os.environ.get("STATUSLINE_SCRIPT", Path(__file__).resolve().parents[1] / "course-materials/agent-configs/claude/statusline.sh")).resolve()
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
 
 
@@ -121,6 +122,29 @@ class StatuslineTests(unittest.TestCase):
         _, plain = self.render(env={"PATH": str(commands)})
         self.assertIn("jq not found", plain)
         self.assertNotIn("Cache:", plain)
+
+    @unittest.skipUnless(sys.platform.startswith("linux"), "Linux directory-symlink regression")
+    def test_symlink_to_repository_subdirectory_preserves_branch(self):
+        # /tmp itself can have a .git marker on development machines, masking
+        # an incorrect lexical-parent walk. Use a separate temporary root.
+        with tempfile.TemporaryDirectory(dir="/var/tmp") as tmp:
+            root = Path(tmp)
+            repo = root / "repo"
+            subdirectory = repo / "nested"
+            subdirectory.mkdir(parents=True)
+            subprocess.run(["git", "init", "-q", "-b", "symlink-branch", str(repo)], check=True)
+            subprocess.run([
+                "git", "-C", str(repo), "-c", "core.hooksPath=/dev/null",
+                "-c", "user.name=Example", "-c", "user.email=example@example.invalid",
+                "commit", "-q", "--allow-empty", "-m", "Synthetic symlink repository",
+            ], check=True)
+            link = root / "linked-subdirectory"
+            link.symlink_to(subdirectory, target_is_directory=True)
+            self.payload["workspace"]["current_dir"] = str(link)
+            self.payload["prompt_cache"] = {"hit_ratio": 0.88}
+            _, plain = self.render()
+            self.assertIn("git:symlink-branch", plain)
+            self.assertIn("Cache: 88%", plain)
 
 
 if __name__ == "__main__":

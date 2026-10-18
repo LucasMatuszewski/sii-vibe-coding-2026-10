@@ -28,7 +28,7 @@ printf '%s' '{"model":{"id":"claude-sonnet-example","display_name":"Sonnet"},"wo
 Run the regression checks with:
 
 ```bash
-python3 -m unittest discover -s course-materials/agent-configs -p 'test_*.py' -v
+python3 -m unittest discover -s tests -p 'test_statusline.py' -v
 ```
 
 ## Protected-branch push policy
