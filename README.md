@@ -2,6 +2,8 @@
 
 ## Aktualności po szkoleniu — 18.10.2026
 
+**Projekt demonstracyjny - dokumentacja i plan implementacji:** na gałęzi [`codex/poc-implementation-plan`](https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/codex/poc-implementation-plan) możecie przejrzeć materiały wygenerowane przez agenta dla projektu prowadzącego: [PRD](https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/codex/poc-implementation-plan/docs/PRD.md), [decyzje architektoniczne ADR](https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/codex/poc-implementation-plan/docs/ADR) i [plan implementacji z podziałem prac](https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/tree/codex/poc-implementation-plan/docs/plans). To zapis przygotowania projektu podczas zajęć; katalog `app/` na tej gałęzi pozostaje szkieletem do dalszej implementacji.
+
 Dostępne są już zapisy czatu Zoom z obu dni: [dzień 1 — 17.10](course-materials/zoom-summary-chat-history/day-1-chat-history.md) i [dzień 2 — 18.10](course-materials/zoom-summary-chat-history/day-2-chat-history.md). Zawierają linki, prompty i pytania z zajęć; zapis dnia 2 uzupełniłem o dodatkowe objaśnienia.
 
 Materiały i uzupełnienia do dalszej pracy:
