@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>sii.pl Performance Audit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky tab bar over a single reading column (max 1120px); each tab is one diagnostic lens, summary first, evidence below. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef0f4;
+  --fg: #12151a;
+  --muted: #586070;
+  --faint: #8a91a0;
+  --line: #e0e3e9;
+  --accent: #2a78d6;
+  --accent-ink: #1c5cab;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --good: #0ca30c; --warn: #fab219; --serious: #ec835a; --critical: #d03b3b;
+  --good-ink: #08700a; --warn-ink: #8a5a00; --critical-ink: #b02a2a;
+  --band-good: rgba(12,163,12,.10); --band-warn: rgba(250,178,25,.14); --band-poor: rgba(208,59,59,.10);
+  --code-bg: #f0f2f6;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111317; --surface: #1a1d22; --surface-2: #23272e; --fg: #eef0f3; --muted: #a6adba; --faint: #7d8494; --line: #2c3139;
+    --accent: #3987e5; --accent-ink: #86b6ef;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --good-ink: #5fd35f; --warn-ink: #fab219; --critical-ink: #ef7d7d;
+    --band-good: rgba(12,163,12,.16); --band-warn: rgba(250,178,25,.14); --band-poor: rgba(208,59,59,.18);
+    --code-bg: #15181c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111317; --surface: #1a1d22; --surface-2: #23272e; --fg: #eef0f3; --muted: #a6adba; --faint: #7d8494; --line: #2c3139;
+  --accent: #3987e5; --accent-ink: #86b6ef;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  --good-ink: #5fd35f; --warn-ink: #fab219; --critical-ink: #ef7d7d;
+  --band-good: rgba(12,163,12,.16); --band-warn: rgba(250,178,25,.14); --band-poor: rgba(208,59,59,.18);
+  --code-bg: #15181c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.55 var(--font-body); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { padding-block: 28px 18px; }
+.eyebrow { font: 500 12px/1.2 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 700 clamp(28px, 4.2vw, 42px)/1.1 var(--font-display); margin: 8px 0 10px; text-wrap: balance; letter-spacing: -.01em; }
+h2 { font: 600 24px/1.2 var(--font-display); margin: 0 0 6px; text-wrap: balance; }
+h3 { font: 600 16px/1.3 var(--font-body); margin: 0 0 8px; }
+p { margin: 0 0 10px; max-width: 72ch; }
+.lede { color: var(--muted); max-width: 70ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 13px/1.4 var(--font-mono); color: var(--muted); margin-top: 12px; }
+code, .mono { font-family: var(--font-mono); font-size: .92em; }
+a { color: var(--accent-ink); }
+
+nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+nav.tabs .wrap { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: thin; }
+nav.tabs button { flex: 0 0 auto; font: 500 14px/1 var(--font-body); color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent; padding: 14px 12px 12px; cursor: pointer; }
+nav.tabs button:hover { color: var(--fg); }
+nav.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+button:focus-visible, summary:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+main { padding-block: 26px 60px; }
+section.panel { display: grid; gap: 22px; }
+.panel-head { display: grid; gap: 4px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; min-width: 0; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 12px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.tile .label { font: 500 12px/1.3 var(--font-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.tile .value { font: 600 28px/1.1 var(--font-display); font-variant-numeric: tabular-nums; }
+.tile .sub { font-size: 13px; color: var(--muted); }
+.pill { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1 var(--font-body); padding: 4px 8px; border-radius: 999px; border: 1px solid var(--line); width: fit-content; white-space: nowrap; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.pill.good { color: var(--good-ink); } .pill.warn { color: var(--warn-ink); } .pill.poor { color: var(--critical-ink); }
+.pill.good::after { content: "Good"; } .pill.warn::after { content: "Needs improvement"; } .pill.poor::after { content: "Poor"; }
+.pill.good::after, .pill.warn::after, .pill.poor::after { color: var(--fg); }
+
+.verdict { display: grid; gap: 10px; }
+.verdict ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+.callout { border-left: 3px solid var(--accent); padding: 10px 14px; background: var(--surface-2); border-radius: 0 8px 8px 0; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { font: 500 13px/1 var(--font-body); background: var(--surface); color: var(--muted); border: 0; padding: 8px 12px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--surface-2); color: var(--fg); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 620px; height: auto; overflow: visible; }
+.chart text { fill: var(--muted); font: 12px var(--font-body); }
+.chart .axis { stroke: var(--line); }
+.chart .grid { stroke: var(--line); stroke-dasharray: 2 3; }
+.chart .lbl { fill: var(--fg); font-size: 12.5px; }
+.chart .val { fill: var(--fg); font: 500 12px var(--font-mono); }
+.chart rect.hit { fill: transparent; cursor: default; }
+.note { font-size: 13px; color: var(--muted); }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 12px/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: 13px; white-space: nowrap; }
+details.tbl > summary { cursor: pointer; font-size: 13px; color: var(--accent-ink); margin-top: 10px; }
+
+#tip { position: fixed; z-index: 20; pointer-events: none; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 13px; box-shadow: 0 6px 20px rgba(0,0,0,.12); max-width: 280px; }
+#tip b { font-weight: 600; }
+#tip .mono { color: var(--muted); }
+
+/* To-do */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip { font: 500 13px/1 var(--font-body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; }
+.chip[aria-pressed="true"] { color: var(--fg); border-color: var(--accent); background: var(--surface-2); }
+.progress { font: 13px var(--font-mono); color: var(--muted); margin-left: auto; }
+.todo { display: grid; gap: 10px; }
+.task { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.mark { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); cursor: pointer; width: fit-content; }
+.task > summary { list-style: none; display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 14px 16px; cursor: pointer; }
+.task > summary::-webkit-details-marker { display: none; }
+.task .pri { font: 600 12px/1 var(--font-mono); padding: 5px 7px; border-radius: 6px; border: 1px solid var(--line); }
+.task[data-p="P0"] .pri { color: var(--critical-ink); border-color: var(--critical); }
+.task[data-p="P1"] .pri { color: var(--warn-ink); border-color: var(--warn); }
+.task[data-p="P2"] .pri { color: var(--accent-ink); border-color: var(--accent); }
+.task[data-p="P3"] .pri { color: var(--muted); }
+.task .ttl { font-weight: 600; min-width: 0; }
+.task .ttl small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.task .eff { font: 12px var(--font-mono); color: var(--muted); text-align: right; white-space: nowrap; }
+.task input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+.task.done .ttl { text-decoration: line-through; color: var(--muted); }
+.task .body { padding: 0 16px 16px; display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; min-width: 0; }
+.task .body h4 { font: 500 12px/1.3 var(--font-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 4px 0 0; }
+.task .body ul, .task .body ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.code { position: relative; }
+.code pre { margin: 0; background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font: 12.5px/1.5 var(--font-mono); color: var(--fg); }
+.code button { position: absolute; top: 6px; right: 6px; font: 500 12px var(--font-body); padding: 5px 9px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; font-size: 14px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; }
+@media (max-width: 560px) {
+  .task > summary { grid-template-columns: auto 1fr; }
+  .task .eff { grid-column: 2; text-align: left; }
+}
+@media (prefers-reduced-motion: no-preference) { .task .body { animation: fade .18s ease-out; } @keyframes fade { from { opacity: .4; } to { opacity: 1; } } }
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <div class="eyebrow">Web performance audit / homepage</div>
+  <h1>sii.pl: users are fine today, slow phones are not</h1>
+  <p class="lede">Real-user Core Web Vitals pass on phone and desktop. On a mid-range phone in the lab, the homepage scores 49/100 with 1.9 s of blocking time, and the hero image waits behind main-thread work. The to-do list ranks fixes by impact, starting with CSS, unused JS and tag governance.</p>
+  <div class="meta"><span>https://sii.pl/</span><span>2026-10-18</span><span>Chrome 155</span><span>Lighthouse 13.5.0</span><span>DevTools MCP 1.11.0</span><span>CrUX p75, 28 days</span></div>
+</header>
+
+<nav class="tabs" aria-label="Report sections">
+  <div class="wrap" role="tablist">
+    <button role="tab" id="t-overview" aria-controls="overview" aria-selected="true">Overview</button>
+    <button role="tab" id="t-lcp" aria-controls="lcp" aria-selected="false">LCP</button>
+    <button role="tab" id="t-main" aria-controls="main-thread" aria-selected="false">Main thread &amp; tags</button>
+    <button role="tab" id="t-payload" aria-controls="payload" aria-selected="false">Payload</button>
+    <button role="tab" id="t-inp" aria-controls="inp" aria-selected="false">Interactions</button>
+    <button role="tab" id="t-memory" aria-controls="memory" aria-selected="false">Memory</button>
+    <button role="tab" id="t-todo" aria-controls="todo" aria-selected="false">To-do</button>
+    <button role="tab" id="t-method" aria-controls="method" aria-selected="false">Method</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- OVERVIEW -->
+<section class="panel" id="overview" role="tabpanel" aria-labelledby="t-overview">
+  <div class="panel-head">
+    <h2>Field: real users (CrUX p75)</h2>
+    <p class="note">What Google uses for Core Web Vitals. URL scope, rolling 28 days. All three vitals are good on both form factors.</p>
+  </div>
+  <div class="tiles" id="field-tiles"></div>
+
+  <div class="panel-head">
+    <h2>Lab: controlled runs (median of 3)</h2>
+    <p class="note">Clean headless Chrome, cold cache, no consent. Mobile = Lighthouse Moto G Power profile: 4x CPU slowdown, 150 ms RTT, about 1.6 Mbps.</p>
+  </div>
+  <div class="card">
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Form factor">
+        <button type="button" data-form="mobile" aria-pressed="true">Mobile</button>
+        <button type="button" data-form="desktop" aria-pressed="false">Desktop</button>
+      </div>
+      <div class="legend"><span><i style="background:var(--band-good);border:1px solid var(--good)"></i>Good</span><span><i style="background:var(--band-warn);border:1px solid var(--warn)"></i>Needs improvement</span><span><i style="background:var(--band-poor);border:1px solid var(--critical)"></i>Poor</span><span><i style="background:var(--s1);border-radius:50%"></i>Run</span><span><i style="background:var(--fg);width:3px;border-radius:1px"></i>Median</span></div>
+    </div>
+    <div class="tiles" id="score-tiles" style="margin-bottom:14px"></div>
+    <div class="chart" id="lab-dots"></div>
+    <details class="tbl"><summary>Show as table</summary><div class="tbl-wrap" id="lab-table"></div></details>
+  </div>
+
+  <div class="card verdict">
+    <h2>What this means</h2>
+    <ol>
+      <li><b>No emergency.</b> Typical visitors are on fast desktops, and p75 field data hides the slow tail.</li>
+      <li><b>The bottleneck is the main thread, not the server.</b> TTFB is about 220 ms. On mobile, about 75% of LCP is render delay: the hero image has already downloaded, but the browser is too busy to paint it.</li>
+      <li><b>Three sources of that work:</b> a 2.5 MB (raw) stylesheet that is 97% unused, about 3 MB of raw JS including jQuery UI and Backbone, and 11 marketing vendors after consent (about 18.6 s of CPU at 4x).</li>
+      <li><b>Interactions feel slow on mid-range phones.</b> Opening the menu takes 536 ms at 4x CPU, and almost all of it is style and layout.</li>
+      <li><b>No memory leak.</b> The heap is large, but it is stable across 50 interactions.</li>
+    </ol>
+    <p class="callout">Start with <b>P0-1</b> (CSS split), <b>P0-2</b> (dequeue unused scripts) and <b>P0-3</b> (GTM governance). Together they move LCP, TBT and INP. See the To-do tab.</p>
+  </div>
+</section>
+
+<!-- LCP -->
+<section class="panel" id="lcp" role="tabpanel" aria-labelledby="t-lcp" hidden>
+  <div class="panel-head">
+    <h2>Where the LCP time goes</h2>
+    <p class="note">LCP element: hero image of slide 1 (<code>1920x920_top-Remek-AIs.webp</code> on desktop, <code>top-Remek-AI-mobs.webp</code> on mobile). Ideal split: TTFB about 40%, load delay under 10%, load duration about 40%, render delay under 10%.</p>
+  </div>
+  <div class="card">
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Scale">
+        <button type="button" data-lcpscale="pct" aria-pressed="true">Share of LCP</button>
+        <button type="button" data-lcpscale="ms" aria-pressed="false">Milliseconds</button>
+      </div>
+      <div class="legend" id="lcp-legend"></div>
+    </div>
+    <div class="chart" id="lcp-chart"></div>
+    <details class="tbl"><summary>Show as table</summary><div class="tbl-wrap" id="lcp-table"></div></details>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Hypothesis rejected: slider gating</h3>
+      <p>The theme keeps slide 1 visible before slick.js initializes (<code>:not(.slick-initialized) .nsw-o-top-lead__slide:nth-child(n+2){display:none}</code>). In a clean desktop run the hero paints at FCP, 252 ms, while slick initializes at 760 ms.</p>
+    </div>
+    <div class="card">
+      <h3>Confirmed: main-thread contention</h3>
+      <p>Mobile at 4x CPU: FCP at 744 ms, hero painted at <b>2,496 ms</b>, slick initialized at 4,296 ms. The image was already downloaded. The delay is style and layout for 2.5 MB of CSS, the parser-blocking jQuery in <code>&lt;head&gt;</code>, inline scripts and early tags.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN THREAD -->
+<section class="panel" id="main-thread" role="tabpanel" aria-labelledby="t-main" hidden>
+  <div class="panel-head">
+    <h2>Main-thread work</h2>
+    <p class="note">Lighthouse mobile, clean profile, 4x CPU: 6.0 s in total. Style &amp; layout alone is 1.9 s.</p>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>By category</h3><div class="chart" id="mt-chart"></div></div>
+    <div class="card"><h3>Heaviest scripts (CPU ms)</h3><div class="chart" id="boot-chart"></div></div>
+  </div>
+  <div class="card">
+    <h3>Third parties: anonymous vs consented visitor</h3>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Measure">
+        <button type="button" data-tp="main" aria-pressed="true">Main thread (consented, 4x CPU)</button>
+        <button type="button" data-tp="bytes" aria-pressed="false">Transfer size</button>
+      </div>
+      <div class="legend" id="tp-legend"></div>
+    </div>
+    <div class="chart" id="tp-chart"></div>
+    <p class="note">Consented totals: about 1.56 MB and about 18.6 s of main thread at 4x CPU (about 4.6 s unthrottled). The <code>&lt;head&gt;</code> of a consented visit has 29 async third-party scripts, including 5 separate <code>gtag/js</code> loads. The Reddit pixel's 7.6 s is an outlier: check its GTM triggers.</p>
+    <details class="tbl"><summary>Show as table</summary><div class="tbl-wrap" id="tp-table"></div></details>
+  </div>
+</section>
+
+<!-- PAYLOAD -->
+<section class="panel" id="payload" role="tabpanel" aria-labelledby="t-payload" hidden>
+  <div class="panel-head">
+    <h2>Payload vs budget</h2>
+    <p class="note">Transfer sizes from the clean mobile Lighthouse run, compared with budgets for a typical content page. The tick marks the budget.</p>
+  </div>
+  <div class="card">
+    <div class="legend" style="margin-bottom:10px"><span><i style="background:var(--s1)"></i>Actual</span><span><i style="background:var(--fg);width:3px;border-radius:1px"></i>Budget</span></div>
+    <div class="chart" id="budget-chart"></div>
+    <details class="tbl"><summary>Show as table</summary><div class="tbl-wrap" id="budget-table"></div></details>
+  </div>
+  <div class="card">
+    <h3>Specific waste</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Item</th><th>Evidence</th><th class="num">Saving</th></tr></thead>
+      <tbody>
+        <tr><td><code>public2.…bundle.css</code></td><td>259 KiB gzip / 2,414 KiB raw, 97% unused here, render-blocking</td><td class="num">~225 KiB, FCP -1.1 s</td></tr>
+        <tr><td>Lato x5 weights</td><td>~116 KiB each, despite the <code>subset-</code> prefix; all VeryHigh priority</td><td class="num">~490-520 KiB</td></tr>
+        <tr><td>Unused JS</td><td>GTM/gtag x4, WebTracking, theme <code>global.js</code></td><td class="num">~329 KiB</td></tr>
+        <tr><td>Card JPGs</td><td>1280 px images in 412 px slots (e.g. ABSL Summit card: 685 KB saving)</td><td class="num">~1 MB</td></tr>
+        <tr><td><code>WebTracking.bundle.js</code></td><td>Cache TTL 0 s, re-downloaded on every visit</td><td class="num">100 KiB / repeat visit</td></tr>
+        <tr><td>Plugin leftovers</td><td>WooCommerce blocks CSS, block-library CSS, lightbox CSS, wp-emoji</td><td class="num">~20 KiB, 4 requests</td></tr>
+        <tr><td>HTML document</td><td>595 KiB raw (47 KiB Brotli), 178 inline SVGs, DOM 3,408-3,576 elements</td><td class="num">-200-300 KiB raw</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- INP -->
+<section class="panel" id="inp" role="tabpanel" aria-labelledby="t-inp" hidden>
+  <div class="panel-head">
+    <h2>Interaction to Next Paint</h2>
+    <p class="note">Event Timing API, isolated context, mobile viewport, 4x CPU, consented. Field p75 is 121 ms on phones, which is good. These lab numbers show the slow-device tail.</p>
+  </div>
+  <div class="card">
+    <div class="legend" id="inp-legend" style="margin-bottom:10px"></div>
+    <div class="chart" id="inp-chart"></div>
+    <details class="tbl"><summary>Show as table</summary><div class="tbl-wrap" id="inp-table"></div></details>
+  </div>
+  <div class="card">
+    <h3>Diagnosis</h3>
+    <p>The handlers are cheap, but the next frame is expensive: style recalculation and layout across about 3,500 elements and about 42,000 CSS rules. Forced synchronous layouts add to it:</p>
+    <ul>
+      <li><code>slidersBuild.js:116</code> <code>observerCallback</code>: 55-74 ms</li>
+      <li>jQuery dimension getters: about 60 ms</li>
+      <li><code>global.js</code> <code>countLines</code> / <code>shouldFloat</code>: about 23 ms</li>
+      <li><code>complianz.min.js</code>: 34 ms</li>
+    </ul>
+  </div>
+</section>
+
+<!-- MEMORY -->
+<section class="panel" id="memory" role="tabpanel" aria-labelledby="t-memory" hidden>
+  <div class="panel-head">
+    <h2>Memory: no leak, but a heavy baseline</h2>
+    <p class="note">Two heap snapshots: one after load, one after 10 cycles of menu open/close, slider next and search open/close (50 interactions).</p>
+  </div>
+  <div class="tiles">
+    <div class="tile"><span class="label">JS heap used</span><span class="value">35.5 MB</span><span class="sub">+0.1 MB after 50 interactions</span></div>
+    <div class="tile"><span class="label">Snapshot delta</span><span class="value">-143 kB</span><span class="sub">allocated vs freed</span></div>
+    <div class="tile"><span class="label">Detached DOM</span><span class="value">3.3 kB</span><span class="sub">26 objects, negligible</span></div>
+    <div class="tile"><span class="label">DOM elements</span><span class="value">3,576</span><span class="sub">unchanged</span></div>
+  </div>
+  <div class="card">
+    <h3>What the heap holds (retained size)</h3>
+    <div class="chart" id="mem-chart"></div>
+    <p class="note">The style-rule objects come from the oversized CSS bundle, so P0-1 shrinks them. The Clarity-like node mirror is a hypothesis based on object shape; confirm it with retainers before acting.</p>
+  </div>
+</section>
+
+<!-- TODO -->
+<section class="panel" id="todo" role="tabpanel" aria-labelledby="t-todo" hidden>
+  <div class="panel-head">
+    <h2>Prioritized to-do</h2>
+    <p class="note">Priority = impact x confidence / effort. Verify each item with 3 lab runs and compare medians. Ticks are saved only in this browser.</p>
+  </div>
+  <div class="filters" role="group" aria-label="Filter by priority">
+    <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-f="P0" aria-pressed="false">P0</button>
+    <button type="button" class="chip" data-f="P1" aria-pressed="false">P1</button>
+    <button type="button" class="chip" data-f="P2" aria-pressed="false">P2</button>
+    <button type="button" class="chip" data-f="P3" aria-pressed="false">P3</button>
+    <span class="progress" id="progress"></span>
+  </div>
+  <div class="todo" id="todo-list">
+
+    <details class="task" data-p="P0" data-id="P0-1" open>
+      <summary><span class="pri">P0-1</span><span class="ttl">Split the 2.5 MB CSS bundle, inline critical CSS, defer the rest<small>FCP, LCP, INP, memory: FCP/LCP -1.0-1.5 s, Style &amp; Layout -50%+, heap -7 MB</small></span><span class="eff">Effort M-L / Theme</span></summary>
+      <div class="body"><label class="mark" for="cb-P0-1"><input type="checkbox" id="cb-P0-1"> Mark as done</label>
+        <h4>Evidence</h4>
+        <ul><li><code>public2.1792065785088.bundle.css</code>: 259 KiB gzip, 2,414 KiB raw, 225 KiB (97%) unused on the homepage.</li><li>Render-blocking, with an estimated 1,170 ms FCP saving on mobile.</li><li>1.9 s of style &amp; layout.</li><li>About 42k style-rule objects in the heap.</li></ul>
+        <h4>How</h4>
+        <ol><li>Build per-template CSS (home, offer, blog, career) plus a small base file, and enqueue each only where it is used.</li><li>Purge unused selectors with a safelist for classes that JS adds.</li><li>Inline at most 14 KiB of above-the-fold CSS and load the rest without blocking.</li></ol>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>// functions.php (theme) - per-template CSS + non-blocking load
+add_action('wp_enqueue_scripts', function () {
+    wp_dequeue_style('sage/public2'); // check the real handle name
+    wp_enqueue_style('sii/base', asset('styles/base.css')-&gt;uri(), [], null);
+    if (is_front_page()) {
+        wp_enqueue_style('sii/home', asset('styles/home.css')-&gt;uri(), ['sii/base'], null);
+    }
+}, 20);
+
+add_filter('style_loader_tag', function ($html, $handle) {
+    if (in_array($handle, ['sii/home'], true)) {
+        $html = str_replace("rel='stylesheet'", "rel='stylesheet' media='print' onload=\"this.media='all'\"", $html);
+    }
+    return $html;
+}, 10, 2);</pre></div>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>// postcss.config.js - purge unused selectors
+module.exports = {
+  plugins: [
+    require('@fullhuman/postcss-purgecss')({
+      content: ['./resources/views/**/*.php', './resources/scripts/**/*.js'],
+      safelist: { standard: [/^slick-/, /^is-/, /^-/, /^cmplz-/], greedy: [/slick/] },
+    }),
+  ],
+};</pre></div>
+        <h4>Verify</h4>
+        <p>Lighthouse mobile x3: render-blocking insight under 300 ms, unused CSS under 50 KiB, style &amp; layout under 900 ms. Heap <code>StyleRule</code> count under 10k. Menu-open INP under 250 ms at 4x CPU.</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P0" data-id="P0-2">
+      <summary><span class="pri">P0-2</span><span class="ttl">Dequeue unused WP, jQuery UI and Backbone scripts; take jQuery out of &lt;head&gt;<small>TBT, LCP: TBT -400-600 ms, about 15 fewer requests</small></span><span class="eff">Effort S / Theme, WP</span></summary>
+      <div class="body"><label class="mark" for="cb-P0-2"><input type="checkbox" id="cb-P0-2"> Mark as done</label>
+        <h4>Evidence</h4>
+        <ul><li>The critical chain loads jQuery UI core, mouse, resizable, draggable, controlgroup, checkboxradio, button and dialog, plus underscore, backbone, api-request, wp-api and wp-emoji.</li><li><code>draggable.min.js</code> is the longest task on the page (427 ms).</li><li><code>jquery.min.js</code> is parser-blocking.</li></ul>
+        <h4>How</h4>
+        <p>Find the plugin behind each handle with Query Monitor (Scripts panel), then:</p>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>add_action('wp_enqueue_scripts', function () {
+    if (is_admin()) return;
+    if (is_front_page()) {
+        foreach (['jquery-ui-dialog', 'jquery-ui-draggable', 'jquery-ui-resizable', 'jquery-ui-button',
+                  'jquery-ui-checkboxradio', 'jquery-ui-controlgroup', 'jquery-ui-mouse',
+                  'wp-api', 'wp-api-request', 'backbone', 'underscore'] as $h) {
+            wp_dequeue_script($h);
+        }
+        wp_dequeue_style('wc-blocks-style');
+        wp_dequeue_style('wp-block-library');
+    }
+}, 100);
+
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+
+// Move jQuery to the footer (test inline jQuery calls first)
+add_action('wp_default_scripts', function ($scripts) {
+    if (!is_admin()) {
+        $scripts-&gt;add_data('jquery', 'group', 1);
+        $scripts-&gt;add_data('jquery-core', 'group', 1);
+        $scripts-&gt;add_data('jquery-migrate', 'group', 1);
+    }
+});</pre></div>
+        <h4>Verify</h4>
+        <p>Network dependency tree has no jQuery UI, Backbone or wp-api. No <code>draggable.min.js</code> in long tasks. Mobile TBT median drops by at least 300 ms. Manual QA: newsletter form, search, cookie banner and mega menu still work.</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P0" data-id="P0-3">
+      <summary><span class="pri">P0-3</span><span class="ttl">GTM governance: one Google tag, delay non-essential pixels, fix the Reddit tag<small>TBT, INP, LCP for consented visitors: consented main thread -50-70%</small></span><span class="eff">Effort S-M / Marketing + dev</span></summary>
+      <div class="body"><label class="mark" for="cb-P0-3"><input type="checkbox" id="cb-P0-3"> Mark as done</label>
+        <h4>Evidence</h4>
+        <ul><li>Consented visit: 11 vendors and 29 async scripts, including 5 <code>gtag/js</code> loads.</li><li>Main thread at 4x CPU: GTM/gtag 8.1 s, Reddit 7.6 s, Facebook 1.5 s.</li><li>Anonymous visit: GTM/gtag is already 686 KiB and 1.9 s of CPU.</li></ul>
+        <h4>How</h4>
+        <ol><li>Configure GA4 (G-X97HN13VEE) and the Google Ads accounts (AW-825630819, AW-969578650) as destinations of one Google tag.</li><li>Fire Reddit, Facebook, LinkedIn, Bing, Leadfeeder, Apollo, OpenAI and Clarity on a <code>page_idle</code> event instead of Page View.</li><li>Count Reddit pixel fires in GTM Preview, and remove the tag if no campaign is running.</li><li>Consider server-side GTM for GA4, Ads and the CAPIs.</li></ol>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>&lt;script&gt;
+  function pushIdle() { (window.dataLayer = window.dataLayer || []).push({ event: 'page_idle' }); }
+  addEventListener('load', () =&gt; ('requestIdleCallback' in window
+    ? requestIdleCallback(pushIdle, { timeout: 4000 })
+    : setTimeout(pushIdle, 3000)), { once: true });
+&lt;/script&gt;</pre></div>
+        <h4>Verify</h4>
+        <p>Consented mobile trace: third-party main thread under 5 s at 4x CPU, with GTM under 3 s. Conversions still fire (GTM Preview, Ads tag diagnostics).</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P1" data-id="P1-1">
+      <summary><span class="pri">P1-1</span><span class="ttl">Fonts: 2-3 weights, real Latin + Latin-Ext subset, preload one<small>FCP, LCP, bytes: -490 KiB, less bandwidth contention</small></span><span class="eff">Effort S / Theme</span></summary>
+      <div class="body"><label class="mark" for="cb-P1-1"><input type="checkbox" id="cb-P1-1"> Mark as done</label>
+        <h4>Evidence</h4>
+        <p><code>subset-Lato-{Regular,Medium,Heavy,Bold,Light}.woff2</code>: 115-118 KiB each, 582 KiB in total, all requested at VeryHigh priority at about 770 ms.</p>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>pyftsubset Lato-Regular.ttf --unicodes="U+0000-00FF,U+0100-017F,U+2013-2014,U+2018-201E,U+2026,U+20AC" --flavor=woff2 --layout-features="kern,liga" --output-file=Lato-Regular-latin-ext.woff2</pre></div>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>&lt;link rel="preload" href="/wp-content/themes/sii-sage/resources/fonts/Lato-Regular-latin-ext.woff2" as="font" type="font/woff2" crossorigin&gt;
+
+@font-face { font-family: "Lato"; src: url(.../Lato-Regular-latin-ext.woff2) format("woff2");
+  font-weight: 400; font-display: swap; unicode-range: U+0000-017F, U+2013-20AC; }</pre></div>
+        <h4>Verify</h4>
+        <p>Font transfer under 100 KiB in total. At most one font at VeryHigh priority.</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P1" data-id="P1-2">
+      <summary><span class="pri">P1-2</span><span class="ttl">Cut INP presentation delay: DOM size, SVG sprite, content-visibility, no forced reflows<small>INP: menu and search from about 500 ms to under 200 ms at 4x CPU</small></span><span class="eff">Effort M / Theme</span></summary>
+      <div class="body"><label class="mark" for="cb-P1-2"><input type="checkbox" id="cb-P1-2"> Mark as done</label>
+        <h4>Evidence</h4>
+        <p>Menu open 536 ms, search close 480 ms, slider 352-432 ms, nearly all of it presentation delay. DOM has up to 3,576 elements, including 178 inline SVGs. Forced reflows in <code>slidersBuild.js:116</code> and <code>global.js</code>.</p>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>.nsw-o-mobile-menu:not(.is-open),
+.nsw-o-search-mobile:not(.is-open) { content-visibility: hidden; }
+.home main &gt; section:nth-of-type(n+3) { content-visibility: auto; contain-intrinsic-size: auto 800px; }</pre></div>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>&lt;svg class="icon" aria-hidden="true"&gt;&lt;use href="/wp-content/themes/sii-sage/dist/icons.svg#angle-right"&gt;&lt;/use&gt;&lt;/svg&gt;</pre></div>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>// before: read-after-write in a loop (forced reflow)
+items.forEach(el =&gt; { el.style.height = 'auto'; heights.push(el.offsetHeight); });
+// after: write all, then read all in the next frame
+items.forEach(el =&gt; { el.style.height = 'auto'; });
+requestAnimationFrame(() =&gt; { const heights = items.map(el =&gt; el.offsetHeight); /* ... */ });</pre></div>
+        <h4>Verify</h4>
+        <p>Every scripted interaction under 200 ms at 4x CPU. ForcedReflow insight under 20 ms in total.</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P1" data-id="P1-3">
+      <summary><span class="pri">P1-3</span><span class="ttl">Dynamics 365 WebTracking: cache it, load after idle, remove unload (bfcache)<small>Repeat visits, back/forward, Best Practices 81 to 92+</small></span><span class="eff">Effort S / Marketing ops</span></summary>
+      <div class="body"><label class="mark" for="cb-P1-3"><input type="checkbox" id="cb-P1-3"> Mark as done</label>
+        <h4>Evidence</h4>
+        <p><code>WebTracking.bundle.js</code>: 100 KiB with a cache TTL of 0. Its <code>unload</code> listener makes the page ineligible for the back/forward cache, triggers a deprecation warning and logs a permissions-policy console error. <code>ws-tracking.js</code> is the longest critical chain (820 ms).</p>
+        <h4>How</h4>
+        <p>Load it from GTM on <code>page_idle</code>, ask the Dynamics admin for the <code>pagehide</code>-based loader or self-host it with a cache of 1 day or more, and confirm the <code>Permissions-Policy: unload=()</code> header.</p>
+        <h4>Verify</h4>
+        <p>Lighthouse <code>bf-cache</code> audit passes. DevTools &gt; Application &gt; Back/forward cache &gt; Test succeeds.</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P2" data-id="P2-1">
+      <summary><span class="pri">P2-1</span><span class="ttl">Responsive images for news and event cards<small>Bytes, LCP on slow networks: about 1 MB less on mobile</small></span><span class="eff">Effort S / Content, theme</span></summary>
+      <div class="body"><label class="mark" for="cb-P2-1"><input type="checkbox" id="cb-P2-1"> Mark as done</label>
+        <p>1280 px JPGs are shown in 412 px slots (for example, the ABSL Summit card could save 685 KB). Output a <code>srcset</code> and serve WebP or AVIF:</p>
+        <div class="code"><button type="button" class="copy">Copy</button><pre>echo wp_get_attachment_image($id, 'medium_large', false, [
+    'sizes' =&gt; '(max-width: 768px) 100vw, 33vw', 'loading' =&gt; 'lazy', 'decoding' =&gt; 'async',
+]);</pre></div>
+        <h4>Verify</h4><p>ImageDelivery insight under 100 KB of savings.</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P2" data-id="P2-2">
+      <summary><span class="pri">P2-2</span><span class="ttl">Hero slider: only slide 1 high priority, other slides lazy, add width/height<small>LCP bandwidth, CLS safety: frees about 170 KiB of high-priority bandwidth</small></span><span class="eff">Effort S / Theme</span></summary>
+      <div class="body"><label class="mark" for="cb-P2-2"><input type="checkbox" id="cb-P2-2"> Mark as done</label>
+        <p>On mobile, 3 hero images are requested at High priority in the first 600 ms, including <code>main_page_top_optimized.jpg.webp</code> (145 KiB). Keep <code>fetchpriority="high"</code> only on slide 1, set <code>loading="lazy" fetchpriority="low"</code> on the other slides, and add <code>width</code>/<code>height</code> to the image and to each <code>&lt;source&gt;</code>.</p>
+        <h4>Verify</h4><p>Only one High-priority image is requested before LCP.</p>
+      </div>
+    </details>
+
+    <details class="task" data-p="P2" data-id="P2-3">
+      <summary><span class="pri">P2-3</span><span class="ttl">Reduce HTML weight (595 KiB raw)<small>Parse time, memory: -200-300 KiB raw HTML</small></span><span class="eff">Effort M / Theme</span></summary>
+      <div class="body"><label class="mark" for="cb-P2-3"><input type="checkbox" id="cb-P2-3"> Mark as done</label><p>Use an SVG sprite (see P1-2), render the menu markup once instead of separately for desktop and mobile, and fetch deep mega-menu levels on first open. Target: raw HTML under 300 KiB and DOM under 2,000 elements.</p></div>
+    </details>
+
+    <details class="task" data-p="P3" data-id="P3-1">
+      <summary><span class="pri">P3-1</span><span class="ttl">Add RUM with the web-vitals attribution build<small>Observability: p75 by device, page and consent; INP attribution</small></span><span class="eff">Effort S / Dev</span></summary>
+      <div class="body"><label class="mark" for="cb-P3-1"><input type="checkbox" id="cb-P3-1"> Mark as done</label><p>Send LCP, INP and CLS, with their <code>attribution</code>, to GA4 as events. CrUX cannot segment by consent state or show which element makes INP slow.</p></div>
+    </details>
+    <details class="task" data-p="P3" data-id="P3-2">
+      <summary><span class="pri">P3-2</span><span class="ttl">Lighthouse CI budgets on every deploy<small>Regression guard</small></span><span class="eff">Effort S / Dev</span></summary>
+      <div class="body"><label class="mark" for="cb-P3-2"><input type="checkbox" id="cb-P3-2"> Mark as done</label><p>Assert on mobile: LCP at most 3000 ms, TBT at most 600 ms, script size at most 500 KB, font size at most 120 KB. Run against staging.</p></div>
+    </details>
+    <details class="task" data-p="P3" data-id="P3-3">
+      <summary><span class="pri">P3-3</span><span class="ttl">Speculation Rules (moderate) for top navigation links<small>Next-page LCP</small></span><span class="eff">Effort S / Dev</span></summary>
+      <div class="body"><label class="mark" for="cb-P3-3"><input type="checkbox" id="cb-P3-3"> Mark as done</label><p>Exclude /wp-admin, cart/checkout and outbound links. Gate analytics on <code>document.prerendering</code>.</p></div>
+    </details>
+    <details class="task" data-p="P3" data-id="P3-4">
+      <summary><span class="pri">P3-4</span><span class="ttl">Accessibility: subtitle contrast and heading order<small>Accessibility 95 to 100</small></span><span class="eff">Effort XS / Theme</span></summary>
+      <div class="body"><label class="mark" for="cb-P3-4"><input type="checkbox" id="cb-P3-4"> Mark as done</label><p>Fix the contrast of <code>p.nsw-m-title-block__subtitle</code>. Change <code>h4.nsw-o-mobile-fixed-layer__title</code> to the correct heading level.</p></div>
+    </details>
+    <details class="task" data-p="P3" data-id="P3-5">
+      <summary><span class="pri">P3-5</span><span class="ttl">Ship <code>global.js</code> fully minified<small>13 KiB</small></span><span class="eff">Effort XS / Build</span></summary>
+      <div class="body"><label class="mark" for="cb-P3-5"><input type="checkbox" id="cb-P3-5"> Mark as done</label><p>Check the Terser settings in the Sage build.</p></div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>Budget targets (mobile lab, median of 3)</h3>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Metric</th><th class="num">Today</th><th class="num">After P0</th><th class="num">After P1</th></tr></thead>
+      <tbody>
+        <tr><td>Performance score</td><td class="num">49</td><td class="num">&ge; 70</td><td class="num">&ge; 85</td></tr>
+        <tr><td>LCP</td><td class="num">4.5 s</td><td class="num">&le; 3.0 s</td><td class="num">&le; 2.5 s</td></tr>
+        <tr><td>TBT</td><td class="num">1.9 s</td><td class="num">&le; 800 ms</td><td class="num">&le; 300 ms</td></tr>
+        <tr><td>JS transfer</td><td class="num">1,014 KiB</td><td class="num">&le; 600 KiB</td><td class="num">&le; 400 KiB</td></tr>
+        <tr><td>CSS transfer</td><td class="num">282 KiB</td><td class="num">&le; 80 KiB</td><td class="num">&le; 60 KiB</td></tr>
+        <tr><td>Font transfer</td><td class="num">582 KiB</td><td class="num">582 KiB</td><td class="num">&le; 100 KiB</td></tr>
+        <tr><td>INP (menu, 4x CPU)</td><td class="num">536 ms</td><td class="num">&le; 350 ms</td><td class="num">&le; 200 ms</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="panel" id="method" role="tabpanel" aria-labelledby="t-method" hidden>
+  <div class="panel-head">
+    <h2>How this was measured</h2>
+    <p class="note">The workflow is from <code>addyosmani/web-quality-skills</code> (performance, core-web-vitals), <code>cloudflare/skills@web-perf</code> and the Chrome DevTools skills <code>debug-optimize-lcp</code> and <code>memory-leak-debugging</code>. Field data comes first, and lab data is used for diagnosis.</p>
+  </div>
+  <div class="card tbl-wrap"><table>
+    <thead><tr><th>Run</th><th>Browser / profile</th><th>Device + throttling</th><th>Cache</th><th>Consent</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>Lighthouse CLI x3, clean headless</td><td>Mobile, simulated 4x CPU, 150 ms RTT, ~1.6 Mbps</td><td>Cold</td><td>None</td><td>Baseline, budgets</td></tr>
+      <tr><td>B</td><td>Lighthouse CLI x3, clean headless</td><td>Desktop preset</td><td>Cold</td><td>None</td><td>Desktop baseline</td></tr>
+      <tr><td>C</td><td>DevTools trace, real profile (autoConnect)</td><td>Desktop, none</td><td>Cold + warm</td><td>Granted</td><td>Returning visitor</td></tr>
+      <tr><td>D</td><td>DevTools trace, real profile</td><td>Mobile 412x915, Slow 4G, 4x CPU</td><td>Cold</td><td>Granted</td><td>Discarded: extensions used ~8.7 s of CPU</td></tr>
+      <tr><td>E</td><td>DevTools trace, isolated context</td><td>Mobile 412x915, Slow 4G, 4x CPU</td><td>Cold</td><td>Granted (cookies copied)</td><td>Consented mobile, no extensions</td></tr>
+      <tr><td>F</td><td>Interaction trace + Event Timing</td><td>Mobile, 4x CPU</td><td>Warm</td><td>Granted</td><td>INP per interaction</td></tr>
+      <tr><td>G</td><td>Heap snapshots x2</td><td>Mobile viewport</td><td>Warm</td><td>Granted</td><td>Leak check</td></tr>
+      <tr><td>H</td><td>LCP candidate log, clean headless</td><td>Desktop and mobile 4x CPU</td><td>Cold</td><td>None</td><td>Root-cause check</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid-2">
+    <div class="card"><h3>Logged-in state</h3><p>sii.pl has no logged-in mode. "Zaloguj się do MySii" leads to a separate application (my.sii.pl), which was out of scope. What differs between visitors is cookie consent, which adds 11 marketing vendors, so runs C-G use the consented state.</p></div>
+    <div class="card"><h3>Caveats</h3><p>CrUX is a 28-day aggregate, so a fix shows up there about 4 weeks after deployment. Each lab trace is one session, so compare medians from runs A and B. Raw traces and snapshots live in <code>raw/</code> (git-ignored, ~500 MB, contains tracking IDs).</p></div>
+  </div>
+</section>
+
+</main>
+<div id="tip" hidden></div>
+
+<script>
+(() => {
+  const D = {
+    field: [
+      { k: 'LCP', phone: 1066, desktop: 1123, unit: 'ms', good: 2500, poor: 4000 },
+      { k: 'INP', phone: 121, desktop: 54, unit: 'ms', good: 200, poor: 500 },
+      { k: 'CLS', phone: 0.00, desktop: 0.02, unit: '', good: 0.1, poor: 0.25 },
+      { k: 'TTFB', phone: 425, desktop: 396, unit: 'ms', good: 800, poor: 1800 },
+    ],
+    scores: { mobile: { performance: [49, 41, 50], accessibility: [95, 95, 95], 'best practices': [81, 81, 81], seo: [100, 100, 100] },
+              desktop: { performance: [90, 89, 88], accessibility: [94, 94, 94], 'best practices': [81, 81, 81], seo: [100, 100, 100] } },
+    lab: {
+      mobile: { FCP: [3101, 3129, 3136], LCP: [4495, 7305, 4429], TBT: [1901, 2049, 1875], CLS: [0, 0, 0], 'Speed Index': [4033, 3648, 4094], TTFB: [231, 206, 220] },
+      desktop: { FCP: [1263, 768, 802], LCP: [1507, 2028, 2063], TBT: [89, 31, 99], CLS: [0.031, 0.021, 0.021], 'Speed Index': [1540, 1284, 1366], TTFB: [237, 107, 202] },
+    },
+    thr: { FCP: [1800, 3000], LCP: [2500, 4000], TBT: [200, 600], CLS: [0.1, 0.25], 'Speed Index': [3400, 5800], TTFB: [800, 1800] },
+    lcp: [
+      { ctx: 'Field, phone (CrUX p75)', v: [425, 126, 136, 414] },
+      { ctx: 'Field, desktop (CrUX p75)', v: [396, 83, 129, 717] },
+      { ctx: 'Lab C: desktop, real profile', v: [102, 18, 47, 801] },
+      { ctx: 'Lab E: mobile 4x, consented', v: [113, 633, 1200, 4871] },
+      { ctx: 'Lab D: mobile 4x, real profile*', v: [136, 762, 1141, 6058] },
+    ],
+    lcpKeys: ['TTFB', 'Load delay', 'Load duration', 'Render delay'],
+    mt: [['Script evaluation', 2581], ['Style & layout', 1903], ['Other', 595], ['Script parse & compile', 421], ['Parse HTML & CSS', 301], ['Rendering', 124], ['Garbage collection', 35]],
+    boot: [['sii.pl/ (HTML document)', 1909], ['gtm.js GTM-NK7PKBQ', 814], ['gtag G-X97HN13VEE (GA4)', 476], ['theme global.js', 454], ['theme slidersBuild.js', 345], ['gtag AW-825630819', 334], ['gtag AW-969578650', 304], ['complianz.min.js', 173], ['wp-api.min.js', 133], ['Dynamics WebTracking', 129]],
+    tp: [
+      { v: 'Google Tag Manager / gtag', anon: 686, cons: 1100, main: 8144 },
+      { v: 'Reddit pixel', anon: 0, cons: 25, main: 7589 },
+      { v: 'Facebook pixel', anon: 0, cons: 199, main: 1542 },
+      { v: 'Bing Ads (UET)', anon: 0, cons: 35, main: 336 },
+      { v: 'Dynamics 365 WebTracking', anon: 100, cons: 103, main: 258 },
+      { v: 'openai.com', anon: 0, cons: 28, main: 220 },
+      { v: 'Cloudflare Analytics', anon: 10, cons: 10, main: 184 },
+      { v: 'LinkedIn Insight', anon: 0, cons: 22, main: 119 },
+      { v: 'Leadfeeder', anon: 0, cons: 13, main: 110 },
+      { v: 'Google/DoubleClick Ads', anon: 0, cons: 21, main: 66 },
+      { v: 'Apollo.io', anon: 0, cons: 2, main: 11 },
+    ],
+    budget: [['Total page weight', 1500, 2207], ['JavaScript', 300, 1014], ['CSS', 100, 282], ['Fonts', 100, 582], ['Images', 500, 259], ['Third-party (anonymous)', 200, 797], ['Third-party (consented)', 200, 1560]],
+    inp: [
+      { i: 'Open mobile menu', v: [3, 0, 533] },
+      { i: 'Close search', v: [8, 0, 472] },
+      { i: 'Slider next (hero)', v: [44, 0, 388] },
+      { i: 'Slider next (2nd)', v: [6, 0, 346] },
+      { i: 'Worst pointerdown (trace)', v: [44, 481, 154] },
+    ],
+    inpKeys: ['Input delay', 'Processing', 'Presentation delay'],
+    mem: [['Compiled JS code', 13.7], ['StyleRule objects', 7.4], ['External strings', 8.0], ['CSSStyleRule objects', 4.5], ['Clarity-like node mirror (hypothesis)', 4.4]],
+  };
+  const SER = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)'];
+  const NS = 'http://www.w3.org/2000/svg';
+  const fmt = (n, d = 0) => n.toLocaleString('en-US', { maximumFractionDigits: d, minimumFractionDigits: d });
+  const med = (a) => { const s = [...a].sort((x, y) => x - y); return s[1]; };
+  const status = (v, g, p) => (v <= g ? 'good' : v <= p ? 'warn' : 'poor');
+  const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (parent) parent.appendChild(e); return e; };
+  const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch { /* storage unavailable */ } } };
+
+  // tooltip
+  const tip = document.getElementById('tip');
+  const showTip = (e, html) => { tip.innerHTML = html; tip.hidden = false; const pad = 14; let x = e.clientX + pad, y = e.clientY + pad; const r = tip.getBoundingClientRect(); if (x + r.width > innerWidth - 8) x = e.clientX - r.width - pad; if (y + r.height > innerHeight - 8) y = e.clientY - r.height - pad; tip.style.left = x + 'px'; tip.style.top = y + 'px'; };
+  const hideTip = () => { tip.hidden = true; };
+  const bindTip = (node, html) => { node.addEventListener('mousemove', (e) => showTip(e, html)); node.addEventListener('mouseleave', hideTip); };
+
+  // tabs
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const select = (id) => {
+    tabs.forEach((t) => { const on = t.getAttribute('aria-controls') === id; t.setAttribute('aria-selected', on); document.getElementById(t.getAttribute('aria-controls')).hidden = !on; });
+    store.set('sii-perf-tab', id);
+  };
+  tabs.forEach((t) => t.addEventListener('click', () => { select(t.getAttribute('aria-controls')); history.replaceState(null, '', '#' + t.getAttribute('aria-controls')); }));
+  const start = location.hash.slice(1) || store.get('sii-perf-tab');
+  if (start && document.getElementById(start) && tabs.some((t) => t.getAttribute('aria-controls') === start)) select(start);
+
+  // field tiles
+  const ft = document.getElementById('field-tiles');
+  for (const m of D.field) for (const f of ['phone', 'desktop']) {
+    const v = m[f]; const s = status(v, m.good, m.poor);
+    ft.insertAdjacentHTML('beforeend', `<div class="tile"><span class="label">${m.k} / ${f}</span><span class="value">${m.unit ? fmt(v) + '<small style="font-size:15px;color:var(--muted)"> ms</small>' : v.toFixed(2)}</span><span class="pill ${s}"></span></div>`);
+  }
+
+  // lab dots
+  const labDots = (form) => {
+    const st = document.getElementById('score-tiles'); st.innerHTML = '';
+    for (const [k, runs] of Object.entries(D.scores[form])) {
+      const m = med(runs); const s = m >= 90 ? 'good' : m >= 50 ? 'warn' : 'poor';
+      st.insertAdjacentHTML('beforeend', `<div class="tile"><span class="label">${k}</span><span class="value">${m}</span><span class="sub mono">runs ${runs.join(' / ')}</span><span class="pill ${s}"></span></div>`);
+    }
+    const box = document.getElementById('lab-dots'); box.innerHTML = '';
+    const metrics = Object.keys(D.lab[form]);
+    const W = 880, L = 150, R = 90, rowH = 46, H = metrics.length * rowH + 10;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Lab metrics for ${form}, three runs each against thresholds` }, box);
+    metrics.forEach((k, i) => {
+      const runs = D.lab[form][k]; const [g, p] = D.thr[k]; const max = Math.max(p * 1.25, ...runs) * 1.02;
+      const x = (v) => L + (v / max) * (W - L - R); const y = 10 + i * rowH; const cy = y + 16;
+      el('rect', { x: x(0), y, width: x(g) - x(0), height: 32, fill: 'var(--band-good)', rx: 4 }, svg);
+      el('rect', { x: x(g), y, width: x(p) - x(g), height: 32, fill: 'var(--band-warn)' }, svg);
+      el('rect', { x: x(p), y, width: x(max) - x(p), height: 32, fill: 'var(--band-poor)', rx: 4 }, svg);
+      const t = el('text', { x: 0, y: cy + 4, class: 'lbl' }, svg); t.textContent = k;
+      const m = med(runs); const isCls = k === 'CLS';
+      el('line', { x1: x(m), x2: x(m), y1: y + 3, y2: y + 29, stroke: 'var(--fg)', 'stroke-width': 3, 'stroke-linecap': 'round' }, svg);
+      runs.forEach((v, j) => {
+        const c = el('circle', { cx: x(v), cy, r: 6, fill: 'var(--s1)', stroke: 'var(--surface)', 'stroke-width': 2 }, svg);
+        const hit = el('circle', { cx: x(v), cy, r: 14, fill: 'transparent' }, svg);
+        bindTip(hit, `<b>${k}, run ${j + 1}</b><br><span class="mono">${isCls ? v.toFixed(3) : fmt(v) + ' ms'}</span><br>good &le; ${isCls ? g : fmt(g) + ' ms'}, poor &gt; ${isCls ? p : fmt(p) + ' ms'}`);
+      });
+      const vt = el('text', { x: W - R + 10, y: cy + 4, class: 'val' }, svg); vt.textContent = isCls ? m.toFixed(3) : fmt(m) + ' ms';
+    });
+    const rows = metrics.map((k) => { const r = D.lab[form][k]; const c = k === 'CLS'; const f = (v) => (c ? v.toFixed(3) : fmt(v)); return `<tr><td>${k}</td><td class="num">${f(med(r))}</td><td class="num">${f(Math.min(...r))}-${f(Math.max(...r))}</td><td class="num">${c ? D.thr[k][0] : fmt(D.thr[k][0])}</td><td><span class="pill ${status(med(r), ...D.thr[k])}"></span></td></tr>`; }).join('');
+    document.getElementById('lab-table').innerHTML = `<table><thead><tr><th>Metric (${form})</th><th class="num">Median</th><th class="num">Range</th><th class="num">Good</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>`;
+  };
+  document.querySelectorAll('[data-form]').forEach((b) => b.addEventListener('click', () => { document.querySelectorAll('[data-form]').forEach((x) => x.setAttribute('aria-pressed', x === b)); labDots(b.dataset.form); }));
+  labDots('mobile');
+
+  // generic stacked horizontal bars
+  const stacked = (box, rows, keys, { pct = false, unit = 'ms', labelW = 220, refs = [] } = {}) => {
+    box.innerHTML = '';
+    const W = 880, R = 70, rowH = 40, top = refs.length ? 22 : 6, H = top + rows.length * rowH + 22;
+    const totals = rows.map((r) => r.v.reduce((a, b) => a + b, 0));
+    const max = pct ? 100 : Math.max(...totals, ...refs.map((r) => r.v)) * 1.05;
+    const x = (v) => labelW + (v / max) * (W - labelW - R);
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' }, box);
+    const ticks = pct ? [0, 25, 50, 75, 100] : niceTicks(max);
+    ticks.forEach((t) => { el('line', { x1: x(t), x2: x(t), y1: top - 2, y2: H - 20, class: 'grid' }, svg); const tt = el('text', { x: x(t), y: H - 4, 'text-anchor': 'middle' }, svg); tt.textContent = pct ? t + '%' : fmt(t); });
+    refs.forEach((r) => { el('line', { x1: x(r.v), x2: x(r.v), y1: top - 6, y2: H - 20, stroke: 'var(--fg)', 'stroke-width': 1.5, 'stroke-dasharray': '4 3' }, svg); const rt = el('text', { x: x(r.v) + 4, y: top - 8, class: 'val' }, svg); rt.textContent = r.label; });
+    rows.forEach((r, i) => {
+      const y = top + i * rowH + 6; const tot = totals[i]; let acc = 0;
+      const lt = el('text', { x: 0, y: y + 18, class: 'lbl' }, svg); lt.textContent = r.label;
+      r.v.forEach((v, j) => {
+        const val = pct ? (v / tot) * 100 : v; if (val <= 0) { acc += val; return; }
+        const x0 = x(acc), w = Math.max(x(acc + val) - x0 - 2, 1);
+        el('rect', { x: x0, y, width: w, height: 24, rx: 3, fill: SER[j] }, svg);
+        const hit = el('rect', { x: x0, y: y - 4, width: Math.max(w, 6), height: 32, class: 'hit' }, svg);
+        bindTip(hit, `<b>${r.label}</b><br>${keys[j]}: <span class="mono">${fmt(v)} ${unit}</span> (${fmt((v / tot) * 100)}%)`);
+        acc += val;
+      });
+      const vt = el('text', { x: W - R + 8, y: y + 17, class: 'val' }, svg); vt.textContent = pct ? fmt((r.v[r.v.length - 1] / tot) * 100) + '%' : fmt(tot) + ' ' + unit;
+    });
+  };
+  function niceTicks(max) { const step = Math.pow(10, Math.floor(Math.log10(max / 4))); const m = [1, 2, 2.5, 5, 10].find((k) => max / (k * step) <= 5) * step; const out = []; for (let t = 0; t <= max; t += m) out.push(t); return out; }
+  const legend = (id, keys) => { document.getElementById(id).innerHTML = keys.map((k, i) => `<span><i style="background:${SER[i]}"></i>${k}</span>`).join(''); };
+  const table = (id, head, rows) => { document.getElementById(id).innerHTML = `<table><thead><tr>${head.map((h, i) => `<th${i ? ' class="num"' : ''}>${h}</th>`).join('')}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c, i) => `<td${i ? ' class="num"' : ''}>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`; };
+
+  // LCP
+  legend('lcp-legend', D.lcpKeys);
+  const lcpRows = D.lcp.map((r) => ({ label: r.ctx, v: r.v }));
+  const drawLcp = (mode) => stacked(document.getElementById('lcp-chart'), lcpRows, D.lcpKeys, { pct: mode === 'pct', labelW: 240 });
+  document.querySelectorAll('[data-lcpscale]').forEach((b) => b.addEventListener('click', () => { document.querySelectorAll('[data-lcpscale]').forEach((x) => x.setAttribute('aria-pressed', x === b)); drawLcp(b.dataset.lcpscale); }));
+  drawLcp('pct');
+  table('lcp-table', ['Context', 'LCP', ...D.lcpKeys, 'Render delay %'], D.lcp.map((r) => { const t = r.v.reduce((a, b) => a + b, 0); return [r.ctx, fmt(t), ...r.v.map((v) => fmt(v)), fmt((r.v[3] / t) * 100) + '%']; }));
+  document.getElementById('lcp-chart').insertAdjacentHTML('afterend', '<p class="note">* Lab D includes about 8.7 s of browser-extension CPU and is shown for contrast only. The right column shows the render-delay share (in % view) or total LCP (in ms view).</p>');
+
+  // simple bars
+  const bars = (box, rows, { unit = 'ms', labelW = 210, color = 'var(--s1)', d = 0, W = 560 } = {}) => {
+    box.innerHTML = '';
+    const R = 76, rowH = 30, H = rows.length * rowH + 4; const max = Math.max(...rows.map((r) => r[1])) * 1.02;
+    const x = (v) => labelW + (v / max) * (W - labelW - R);
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' }, box);
+    rows.forEach(([k, v], i) => {
+      const y = i * rowH + 4; const lt = el('text', { x: 0, y: y + 14, class: 'lbl' }, svg); lt.textContent = k;
+      el('rect', { x: labelW, y, width: Math.max(x(v) - labelW, 2), height: 18, rx: 3, fill: color }, svg);
+      const hit = el('rect', { x: 0, y: y - 4, width: W, height: rowH, class: 'hit' }, svg); bindTip(hit, `<b>${k}</b><br><span class="mono">${fmt(v, d)} ${unit}</span>`);
+      const vt = el('text', { x: x(v) + 6, y: y + 14, class: 'val' }, svg); vt.textContent = fmt(v, d) + ' ' + unit;
+    });
+  };
+  bars(document.getElementById('mt-chart'), D.mt, { labelW: 170 });
+  bars(document.getElementById('boot-chart'), D.boot, { labelW: 190 });
+
+  // third parties
+  const drawTp = (mode) => {
+    const box = document.getElementById('tp-chart'); box.innerHTML = '';
+    if (mode === 'main') {
+      document.getElementById('tp-legend').innerHTML = '<span><i style="background:var(--s1)"></i>Consented, main-thread ms at 4x CPU</span>';
+      bars(box, D.tp.map((t) => [t.v, t.main]), { labelW: 210, W: 880 });
+    } else {
+      document.getElementById('tp-legend').innerHTML = '<span><i style="background:var(--s1)"></i>Anonymous</span><span><i style="background:var(--s2)"></i>Consented</span>';
+      const W = 880, labelW = 210, R = 70, rowH = 34, H = D.tp.length * rowH + 4; const max = 1150;
+      const x = (v) => labelW + (v / max) * (W - labelW - R);
+      const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img' }, box);
+      D.tp.forEach((t, i) => {
+        const y = i * rowH + 3; const lt = el('text', { x: 0, y: y + 17, class: 'lbl' }, svg); lt.textContent = t.v;
+        el('rect', { x: labelW, y, width: Math.max(x(t.anon) - labelW, t.anon ? 2 : 0), height: 12, rx: 3, fill: 'var(--s1)' }, svg);
+        el('rect', { x: labelW, y: y + 14, width: Math.max(x(t.cons) - labelW, 2), height: 12, rx: 3, fill: 'var(--s2)' }, svg);
+        const hit = el('rect', { x: 0, y: y - 2, width: W, height: rowH, class: 'hit' }, svg); bindTip(hit, `<b>${t.v}</b><br>Anonymous: <span class="mono">${t.anon ? fmt(t.anon) + ' KB' : 'not loaded'}</span><br>Consented: <span class="mono">${fmt(t.cons)} KB</span>`);
+        const vt = el('text', { x: x(t.cons) + 6, y: y + 25, class: 'val' }, svg); vt.textContent = fmt(t.cons) + ' KB';
+      });
+    }
+  };
+  document.querySelectorAll('[data-tp]').forEach((b) => b.addEventListener('click', () => { document.querySelectorAll('[data-tp]').forEach((x) => x.setAttribute('aria-pressed', x === b)); drawTp(b.dataset.tp); }));
+  drawTp('main');
+  table('tp-table', ['Vendor', 'Anonymous KB', 'Consented KB', 'Main thread ms (4x)'], D.tp.map((t) => [t.v, t.anon ? fmt(t.anon) : '-', fmt(t.cons), fmt(t.main)]));
+
+  // budget
+  (() => {
+    const box = document.getElementById('budget-chart'); const W = 880, labelW = 200, R = 120, rowH = 36, H = D.budget.length * rowH + 24; const max = 2300;
+    const x = (v) => labelW + (v / max) * (W - labelW - R);
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': 'Actual transfer size vs budget per resource type' }, box);
+    [0, 500, 1000, 1500, 2000].forEach((t) => { el('line', { x1: x(t), x2: x(t), y1: 0, y2: H - 20, class: 'grid' }, svg); const tt = el('text', { x: x(t), y: H - 4, 'text-anchor': 'middle' }, svg); tt.textContent = fmt(t) + ' KiB'; });
+    D.budget.forEach(([k, b, a], i) => {
+      const y = i * rowH + 6; const over = a > b;
+      const lt = el('text', { x: 0, y: y + 15, class: 'lbl' }, svg); lt.textContent = k;
+      el('rect', { x: labelW, y, width: x(a) - labelW, height: 20, rx: 3, fill: 'var(--s1)' }, svg);
+      el('line', { x1: x(b), x2: x(b), y1: y - 4, y2: y + 24, stroke: 'var(--fg)', 'stroke-width': 3, 'stroke-linecap': 'round' }, svg);
+      const vt = el('text', { x: x(a) + 8, y: y + 15, class: 'val' }, svg); vt.textContent = `${fmt(a)} KiB ${over ? '+' + fmt(((a - b) / b) * 100) + '%' : 'OK'}`;
+      const hit = el('rect', { x: 0, y: y - 6, width: W, height: rowH, class: 'hit' }, svg); bindTip(hit, `<b>${k}</b><br>Actual <span class="mono">${fmt(a)} KiB</span>, budget <span class="mono">${fmt(b)} KiB</span><br>${over ? 'Over budget by ' + fmt(((a - b) / b) * 100) + '%' : 'Within budget'}`);
+    });
+    table('budget-table', ['Resource', 'Budget KiB', 'Actual KiB', 'Over budget'], D.budget.map(([k, b, a]) => [k, fmt(b), fmt(a), a > b ? '+' + fmt(((a - b) / b) * 100) + '%' : 'OK']));
+  })();
+
+  // INP
+  legend('inp-legend', D.inpKeys);
+  document.getElementById('inp-legend').insertAdjacentHTML('beforeend', '<span><i style="background:var(--fg);width:3px;border-radius:1px"></i>200 ms good / 500 ms poor</span>');
+  stacked(document.getElementById('inp-chart'), D.inp.map((r) => ({ label: r.i, v: r.v })), D.inpKeys, { labelW: 200, refs: [{ v: 200, label: '200' }, { v: 500, label: '500' }] });
+  table('inp-table', ['Interaction', ...D.inpKeys, 'Total ms'], D.inp.map((r) => [r.i, ...r.v.map((v) => fmt(v)), fmt(r.v.reduce((a, b) => a + b, 0))]));
+
+  // memory
+  bars(document.getElementById('mem-chart'), D.mem, { unit: 'MB', labelW: 250, d: 1, W: 880 });
+
+  // to-do: filters, done state, copy
+  const tasks = [...document.querySelectorAll('.task')];
+  const updateProgress = () => { const done = tasks.filter((t) => t.classList.contains('done')).length; document.getElementById('progress').textContent = `${done} / ${tasks.length} done`; };
+  tasks.forEach((t) => {
+    const cb = t.querySelector('input[type="checkbox"]'); const key = 'sii-perf-done-' + t.dataset.id;
+    if (store.get(key) === '1') { cb.checked = true; t.classList.add('done'); }
+    
+    cb.addEventListener('change', () => { t.classList.toggle('done', cb.checked); store.set(key, cb.checked ? '1' : '0'); updateProgress(); });
+  });
+  updateProgress();
+  document.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach((x) => x.setAttribute('aria-pressed', x === c));
+    tasks.forEach((t) => { t.hidden = !(c.dataset.f === 'all' || t.dataset.p === c.dataset.f); });
+  }));
+  document.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', async () => {
+    const pre = b.nextElementSibling;
+    try { await navigator.clipboard.writeText(pre.textContent); b.textContent = 'Copied'; }
+    catch { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected, press Ctrl+C'; }
+    setTimeout(() => { b.textContent = 'Copy'; }, 1800);
+  }));
+})();
+</script>
+</body>
+</html>

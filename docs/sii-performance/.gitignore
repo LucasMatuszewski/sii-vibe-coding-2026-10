@@ -1,0 +1,3 @@
+# Raw traces, heap snapshots and Lighthouse runs: ~500 MB, and the real-profile
+# traces contain tracking identifiers (cookie IDs, pixel query strings).
+raw/
