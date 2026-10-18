@@ -158,22 +158,9 @@ git_branch=""
 git_target="."
 [ -n "$norm" ] && [ -d "$norm" ] && git_target="$norm"
 
-# Cheap pure-bash pre-check before spawning git at all: walk up looking for a
-# .git entry (a directory normally, a file for worktrees and submodules). In a
-# non-repo folder like ~/.claude this saves a whole process launch on every
-# single render, which is the most expensive thing this script can do on Windows.
-has_git=0
-probe="$git_target"
-while [ -n "$probe" ]; do
-    if [ -e "$probe/.git" ]; then has_git=1; break; fi
-    parent=${probe%/*}
-    [ "$parent" = "$probe" ] && break   # reached "C:" or a bare name
-    probe="$parent"                     # reaching "" ends the loop
-done
-
-if [ "$has_git" -eq 1 ]; then
-    git_branch=$(git -C "$git_target" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null) || git_branch=""
-fi
+# Let Git discover the repository itself: a lexical parent walk misses .git
+# when the session directory is a symlink to a subdirectory of a repository.
+git_branch=$(git -C "$git_target" --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null) || git_branch=""
 
 dir_part="${BLUE}${dir_display}${RESET}"
 if [ -n "$git_branch" ]; then
