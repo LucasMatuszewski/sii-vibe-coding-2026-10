@@ -8,7 +8,7 @@
 <title>Pytania uczestników | Vibe coding | 17-18.10.2026</title>
 <meta name="description" content="Odpowiedzi na pytania o instrukcje projektu, workflow, testy, review, kontekst, koszty i pracę z agentami AI.">
 <script>(function(){try{var t=localStorage.getItem('developer-course-theme');if(t==='light')document.documentElement.dataset.theme='light'}catch(_){}})();</script>
-<link rel="stylesheet" href="course.css?v=20261024-C2">
+<link rel="stylesheet" href="course.css?v=20261024-D1">
 <style>
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:78px}body{margin:0;line-height:1.65}a{color:var(--accent)}a:hover{text-decoration:underline}
 .qa-hero{padding:68px 0 38px;border-bottom:1px solid var(--line);background:radial-gradient(700px 360px at 85% 0%,var(--accent-soft),transparent 75%)}
@@ -93,7 +93,7 @@ a{overflow-wrap:anywhere}.qa-card{min-width:0}.qa-card table{width:100%;border-c
 <article class="qa-card" id="worktrees">
 <h2>Jak pracować kilkoma agentami w jednym repozytorium?</h2>
 <p><strong>Fakt:</strong> Git worktree daje dodatkowy katalog roboczy z własnym indeksem i checkoutem, przy współdzielonym repozytorium Git. Nie izoluje sam z siebie procesów, sieci ani sekretów.</p>
-<p><strong>Zalecenie:</strong> zacznij od jednego agenta. Przy równoległej implementacji osobne branche i worktree ułatwiają rozdzielenie zmian. Wspólny katalog dopuszczaj tylko przy rozłącznych plikach i jednym koordynatorze operacji Git. Nie pozwalaj agentom równocześnie przełączać brancha ani aktualizować lockfile.</p>
+<p><strong>Zalecenie:</strong> zacznij od jednego agenta. Worktree twórz tylko wtedy, gdy agenci muszą równolegle zmieniać te same pliki, np. przy różnych zadaniach w tym samym kodzie. W pozostałych przypadkach rozdziel zadania według plików lub folderów, poinformuj agentów o równoległej pracy i zapisz plan zależności; wspólne zmiany scalaj kolejno. W AGENTS.md zapisz regułę: agent nie tworzy worktree domyślnie. Osobne instalacje zależności zużywają dysk i CPU, a agenci często zapominają je posprzątać. Wspólny katalog dopuszczaj tylko przy rozłącznych plikach i jednym koordynatorze operacji Git. Nie pozwalaj agentom równocześnie przełączać brancha ani aktualizować lockfile.</p>
 <p><strong>Przykład:</strong> agent A zmienia walidator, agent B tylko dokumentację; wspólny kontrakt zatwierdzacie wcześniej. Koordynator sprawdza oba diffy, scala i testuje całość. Dla worktree zaplanuj osobne porty, zależności i usunięcie katalogu po zakończeniu; koszt zależy od projektu i menedżera pakietów.</p>
 <p class="qa-demo">Na zajęciach: dzień 2, moduł 8: <a href="Prezentacja_11_Zespol.html">Zespół</a>.</p>
 <p class="qa-sources">Sprawdzono: <time datetime="2026-10-17">2026-10-17</time>. Źródła: <a href="https://git-scm.com/docs/git-worktree">Git: worktree</a>, <a href="https://github.com/LucasMatuszewski/sii-vibe-coding-2026-10/blob/main/course-materials/Research/agent-managers-and-remote-agents.md">Notatka: agent-managers-and-remote-agents</a>.</p>
